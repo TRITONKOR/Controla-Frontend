@@ -1,0 +1,39 @@
+.header {
+  background-color: white;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--inter);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 80px;
+
+  .logo-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .header__logo {
+      height: 32px;
+      width: auto;
+    }
+
+    .header__title {
+      font-size: 1.25rem;
+      font-weight: bolder;
+      margin: 0;
+    }
+  }
+
+  .navigation {
+    flex-grow: 1;
+    margin: 0 32px;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+  }
+}
+
