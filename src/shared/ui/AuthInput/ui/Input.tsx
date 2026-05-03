@@ -9,14 +9,29 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     suffix?: ReactNode;
 }
 
-export const Input: FC<InputProps> = ({ label, error, className, ...rest }) => {
+export const Input: FC<InputProps> = ({
+    label,
+    error,
+    suffix,
+    className,
+    ...rest
+}) => {
     return (
         <div className="input-wrapper">
             {label && <label className="input-wrapper__label">{label}</label>}
-            <input
-                className={clsx("input", { "input--error": error }, className)}
-                {...rest}
-            />
+            <div className="input-wrapper__field">
+                <input
+                    className={clsx(
+                        "input",
+                        { "input--error": error },
+                        className,
+                    )}
+                    {...rest}
+                />
+                {suffix && (
+                    <span className="input-wrapper__suffix">{suffix}</span>
+                )}
+            </div>
             {error && <span className="input-wrapper__error">{error}</span>}
         </div>
     );

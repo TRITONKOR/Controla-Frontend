@@ -1,16 +1,25 @@
+import { useEffect } from "react";
+import { authApi } from "./api";
 import "./App.scss";
-import { LoginPage } from "./pages/LoginPage";
-import { PageLayout } from "./widgets/PageLayout";
+import { AppRouter } from "./app/providers/AppRouter";
+import { useAuthStore } from "./app/store/authStore";
 
 function App() {
-    return (
-        <div className="App">
-            <PageLayout>
-                {/* <GreetingPage /> */}
-                <LoginPage />
-            </PageLayout>
-        </div>
-    );
+    const setAuth = useAuthStore((s) => s.setAuth);
+    const clearAuth = useAuthStore((s) => s.clearAuth);
+
+    useEffect(() => {
+        authApi
+            .refresh()
+            .then((res) => {
+                setAuth(res.data.user, res.data.accessToken);
+            })
+            .catch(() => {
+                clearAuth();
+            });
+    }, []);
+
+    return <AppRouter />;
 }
 
 export default App;

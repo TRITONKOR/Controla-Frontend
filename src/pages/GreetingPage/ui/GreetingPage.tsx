@@ -1,7 +1,14 @@
 import type { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import "./greetingPage.scss";
 
 export const GreetingPage: FC = () => {
+    const navigate = useNavigate();
+
+    const handleCTAClick = () => {
+        navigate("/login");
+    };
+
     return (
         <section className="greeting">
             <div className="greeting__content">
@@ -17,7 +24,7 @@ export const GreetingPage: FC = () => {
                     може бути менеджмент
                 </p>
 
-                <button className="greeting__cta" type="button">
+                <button className="greeting__cta" onClick={handleCTAClick}>
                     Спробувати прямо зараз
                 </button>
             </div>
