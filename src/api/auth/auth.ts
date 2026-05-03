@@ -2,18 +2,35 @@ import { api } from "../axios";
 import type { AuthResponse } from "./types";
 
 export const authApi = {
-    login: (email: string, password: string): Promise<AuthResponse> =>
-        api.post("/auth/login", { email, password }),
+    login: async (email: string, password: string): Promise<AuthResponse> => {
+        const response = await api.post<AuthResponse>("/auth/login", {
+            email,
+            password,
+        });
+        return response.data;
+    },
 
-    register: (
+    register: async (
         email: string,
         password: string,
         firstName: string,
         lastName: string,
-    ): Promise<AuthResponse> =>
-        api.post("/auth/register", { email, password, firstName, lastName }),
+    ): Promise<AuthResponse> => {
+        const response = await api.post<AuthResponse>("/auth/register", {
+            email,
+            password,
+            firstName,
+            lastName,
+        });
+        return response.data;
+    },
 
-    logout: () => api.post("/auth/logout"),
+    logout: async (): Promise<void> => {
+        await api.post("/auth/logout");
+    },
 
-    refresh: () => api.post("/auth/refresh"),
+    refresh: async (): Promise<AuthResponse> => {
+        const response = await api.post<AuthResponse>("/auth/refresh");
+        return response.data;
+    },
 };

@@ -34,6 +34,21 @@
   .profile {
     display: flex;
     align-items: center;
+
+    .login-button {
+      color: var(--primary);
+      background-color: white;
+      border: 2px solid var(--primary);
+      border-radius: 20px;
+      padding: 8px 24px;
+      font-size: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--primary-hover);
+        color: white;
+      }
+    }
   }
 }
 

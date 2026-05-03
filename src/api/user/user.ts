@@ -1,14 +1,5 @@
+import type { User } from "@/entities/user/model/types";
 import { api } from "../axios";
-
-export interface User {
-    id: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-    role: "admin" | "manager" | "employee" | "pending";
-    departmentId?: number;
-    createdAt: string;
-}
 
 export interface UpdateUserPayload {
     firstName?: string;

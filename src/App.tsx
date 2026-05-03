@@ -14,8 +14,10 @@ function App() {
             .then((res) => {
                 setAuth(res.data.user, res.data.accessToken);
             })
-            .catch(() => {
-                clearAuth();
+            .catch((err) => {
+                if (err.response?.status === 401) {
+                    clearAuth();
+                }
             });
     }, []);
 

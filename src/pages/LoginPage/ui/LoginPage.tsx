@@ -39,6 +39,7 @@ export const LoginPage = () => {
         setServerError(null);
         try {
             const response = await authApi.login(data.email, data.password);
+            console.log(response);
             setAuth(response.user, response.accessToken);
             navigate(ROUTES.DASHBOARD);
         } catch (err: unknown) {

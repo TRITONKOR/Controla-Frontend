@@ -7,6 +7,7 @@ import { RegisterPage } from "@/pages/RegisterPage";
 import { ReportsPage } from "@/pages/ReportsPage";
 import { TasksPage } from "@/pages/TasksPage";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { GuestOnlyRoute } from "./GuestOnlyRoute";
 import { RootLayout } from "./RootLayout";
 import { ROUTES } from "./routes";
 
@@ -15,16 +16,24 @@ export const router = createBrowserRouter([
         element: <RootLayout />,
         children: [
             {
-                path: ROUTES.HOME,
+                path: ROUTES.GREETING,
                 element: <GreetingPage />,
             },
             {
                 path: ROUTES.LOGIN,
-                element: <LoginPage />,
+                element: (
+                    <GuestOnlyRoute>
+                        <LoginPage />
+                    </GuestOnlyRoute>
+                ),
             },
             {
                 path: ROUTES.REGISTER,
-                element: <RegisterPage />,
+                element: (
+                    <GuestOnlyRoute>
+                        <RegisterPage />
+                    </GuestOnlyRoute>
+                ),
             },
             {
                 path: ROUTES.DASHBOARD,

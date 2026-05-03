@@ -1,3 +1,5 @@
+import type { User } from "@/entities/user/model/types";
+
 export interface LoginRequest {
     email: string;
     password: string;
@@ -12,12 +14,7 @@ export interface RegisterRequest {
 
 export interface AuthResponse {
     accessToken: string;
-    user: {
-        id: string;
-        email: string;
-        firstName: string;
-        lastName: string;
-    };
+    user: User;
 }
 
 export interface LogoutResponse {
