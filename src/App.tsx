@@ -12,7 +12,7 @@ function App() {
         authApi
             .refresh()
             .then((res) => {
-                setAuth(res.data.user, res.data.accessToken);
+                setAuth(res.user, res.accessToken);
             })
             .catch((err) => {
                 if (err.response?.status === 401) {

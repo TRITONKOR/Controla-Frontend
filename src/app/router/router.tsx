@@ -1,6 +1,7 @@
 import { DashboardPage } from "@/pages/DashboardPage";
 import { EmployeesPage } from "@/pages/EmployeesPage";
 import { GreetingPage } from "@/pages/GreetingPage";
+import { HomePage } from "@/pages/HomePage";
 import { LoginPage } from "@/pages/LoginPage";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { RegisterPage } from "@/pages/RegisterPage";
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
     {
         element: <RootLayout />,
         children: [
+            {
+                path: ROUTES.HOME,
+                element: <HomePage />,
+            },
             {
                 path: ROUTES.GREETING,
                 element: <GreetingPage />,
