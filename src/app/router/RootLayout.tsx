@@ -1,10 +1,10 @@
-import { PageLayout } from "@/widgets/PageLayout";
+import { HeaderLayout } from "@/widgets/HeaderLayout";
 import { Outlet } from "react-router-dom";
 
 export const RootLayout = () => {
     return (
-        <PageLayout>
+        <HeaderLayout>
             <Outlet />
-        </PageLayout>
+        </HeaderLayout>
     );
 };

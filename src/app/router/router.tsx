@@ -1,13 +1,13 @@
 import { DashboardPage } from "@/pages/DashboardPage";
 import { EmployeesPage } from "@/pages/EmployeesPage";
 import { GreetingPage } from "@/pages/GreetingPage";
-import { HomePage } from "@/pages/HomePage";
 import { LoginPage } from "@/pages/LoginPage";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { ReportsPage } from "@/pages/ReportsPage";
 import { TasksPage } from "@/pages/TasksPage";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { SidebarLayout } from "@/widgets/SidebarLayout";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
 import { RootLayout } from "./RootLayout";
 import { ROUTES } from "./routes";
@@ -16,10 +16,6 @@ export const router = createBrowserRouter([
     {
         element: <RootLayout />,
         children: [
-            {
-                path: ROUTES.HOME,
-                element: <HomePage />,
-            },
             {
                 path: ROUTES.GREETING,
                 element: <GreetingPage />,
@@ -41,24 +37,33 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: ROUTES.DASHBOARD,
-                element: <DashboardPage />,
-            },
-            {
-                path: ROUTES.EMPLOYEES,
-                element: <EmployeesPage />,
-            },
-            {
-                path: ROUTES.PROJECTS,
-                element: <ProjectsPage />,
-            },
-            {
-                path: ROUTES.TASKS,
-                element: <TasksPage />,
-            },
-            {
-                path: ROUTES.REPORTS,
-                element: <ReportsPage />,
+                element: (
+                    <SidebarLayout>
+                        <Outlet />
+                    </SidebarLayout>
+                ),
+                children: [
+                    {
+                        path: ROUTES.HOME,
+                        element: <ProjectsPage />,
+                    },
+                    {
+                        path: ROUTES.DASHBOARD,
+                        element: <DashboardPage />,
+                    },
+                    {
+                        path: ROUTES.EMPLOYEES,
+                        element: <EmployeesPage />,
+                    },
+                    {
+                        path: ROUTES.TASKS,
+                        element: <TasksPage />,
+                    },
+                    {
+                        path: ROUTES.REPORTS,
+                        element: <ReportsPage />,
+                    },
+                ],
             },
             {
                 path: "*",

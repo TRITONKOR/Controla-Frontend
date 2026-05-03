@@ -1,7 +1,7 @@
 .sidebar {
     width: 300px;
     min-width: 220px;
-    height: 100%;
+    align-self: stretch;
     background: white;
     border-right: 1px solid var(--border);
     display: flex;

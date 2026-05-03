@@ -6,8 +6,6 @@ export interface User {
     avatar?: string;
     role: "admin" | "manager" | "employee" | "pending";
     departmentId?: string;
-    createdAt: string;
-    updatedAt: string;
     isActive: boolean;
 }
 

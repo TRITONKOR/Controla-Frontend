@@ -1,12 +1,12 @@
 import type { FC, ReactNode } from "react";
 import { Header } from "../../Header";
-import "./pageLayout.scss";
+import "./headerLayout.scss";
 
-interface PageLayoutProps {
+interface HeaderLayoutProps {
     children: ReactNode;
 }
 
-export const PageLayout: FC<PageLayoutProps> = ({ children }) => {
+export const HeaderLayout: FC<HeaderLayoutProps> = ({ children }) => {
     return (
         <div className="layout">
             <Header />
