@@ -17,6 +17,9 @@ export interface ProjectResponse {
     title: string;
     description: string;
     ownerId: string;
+    ownerFirstName: string;
+    ownerLastName: string;
+    ownerAvatar: string;
     status: "active" | "completed" | "archived";
     costs: number;
     deadline: string;

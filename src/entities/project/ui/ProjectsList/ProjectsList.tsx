@@ -5,6 +5,7 @@ import "./projectsList.scss";
 
 interface ProjectsListProps {
     projects: ProjectResponse[];
+    onProjectSelect: (project: ProjectResponse) => void;
 }
 
 function formatDeadline(dateStr: string): string {
@@ -16,7 +17,10 @@ function formatDeadline(dateStr: string): string {
     });
 }
 
-export const ProjectsList: FC<ProjectsListProps> = ({ projects }) => {
+export const ProjectsList: FC<ProjectsListProps> = ({
+    projects,
+    onProjectSelect,
+}) => {
     return (
         <div className="projects-list">
             {projects.map((project) => {
@@ -24,16 +28,22 @@ export const ProjectsList: FC<ProjectsListProps> = ({ projects }) => {
                 const doneTasks = project.tasks.filter(
                     (t) => t.status === "done",
                 ).length;
-                const leader = project.assignees[0];
-                const leaderName = leader
-                    ? `${leader.firstName} ${leader.lastName}`
-                    : "—";
-                const leaderInitial = leader ? leader.firstName[0] : "?";
+                const leaderName =
+                    project.ownerFirstName && project.ownerLastName
+                        ? `${project.ownerFirstName} ${project.ownerLastName}`
+                        : "—";
+                const leaderInitial = project.ownerFirstName
+                    ? project.ownerFirstName[0]
+                    : "?";
                 const donePercent =
                     totalTasks > 0 ? (doneTasks / totalTasks) * 100 : 0;
 
                 return (
-                    <div key={project.id} className="project-card">
+                    <div
+                        key={project.id}
+                        className="project-card"
+                        onClick={() => onProjectSelect(project)}
+                    >
                         <div className="project-card__header">
                             <div className="project-card__icon">
                                 {project.title[0].toUpperCase()}

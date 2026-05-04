@@ -3,12 +3,14 @@ import logoUrl from "@/assets/logo.png";
 import { authApi } from "@/api";
 import { ROUTES } from "@/app/router/routes";
 import { useAuthStore } from "@/app/store/authStore";
+import { useProjectStore } from "@/entities/project";
 import { UserAvatar } from "@/entities/user/ui/UserAvatar";
 import { useNavigate } from "react-router";
 import "./header.scss";
 
 export const Header = () => {
     const clearAuth = useAuthStore((s) => s.clearAuth);
+    const setSelectedProject = useProjectStore((s) => s.setSelectedProject);
 
     const navigate = useNavigate();
     const user = useAuthStore((s) => s.user);
@@ -25,10 +27,16 @@ export const Header = () => {
         }
     };
 
+    const handleLogoClick = () => {
+        setSelectedProject(null);
+        navigate(ROUTES.PROJECTS);
+    };
+
     return (
         <header className="header">
             <div className="logo-container">
                 <img
+                    onClick={handleLogoClick}
                     className="header__logo"
                     src={logoUrl}
                     alt="Controla logo"

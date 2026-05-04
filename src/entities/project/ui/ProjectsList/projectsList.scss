@@ -1,24 +1,35 @@
 .projects-list {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
   width: 100%;
-  max-width: 100%;
   box-sizing: border-box;
   border-radius: 15px;
   padding: 20px;
   background-color: var(--bg);
+  justify-content: flex-start ;
 }
 
 .project-card {
+  flex: 1 1 350px;
+  max-width: 450px;
+
   background: var(--surface, #fff);
   border-radius: 16px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  max-width: 400px;
+
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
 
   &__header {
     display: flex;
@@ -89,7 +100,7 @@
   &__leader {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
   }
 
   &__leader-avatar {
@@ -109,7 +120,7 @@
   &__leader-name {
     font-size: 14px;
     font-weight: 600;
-    color: var(--text, #1a1a1a);
+    color: var(--text-h);
   }
 
   &__progress {
