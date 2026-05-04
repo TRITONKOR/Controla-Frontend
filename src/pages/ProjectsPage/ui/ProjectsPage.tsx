@@ -4,9 +4,11 @@ import { projectApi } from "@/api";
 import { useProjectStore } from "@/entities/project";
 import type { ProjectResponse } from "@/entities/project/model/types";
 import { ProjectsList } from "@/entities/project/ui/ProjectsList/ProjectsList";
+import { useNavigate } from "react-router-dom";
 import "./projectsPage.scss";
 
 export const ProjectsPage: FC = () => {
+    const navigate = useNavigate();
     const setSelectedProject = useProjectStore(
         (state) => state.setSelectedProject,
     );
@@ -19,6 +21,7 @@ export const ProjectsPage: FC = () => {
 
     const handleProjectSelect = (project: ProjectResponse) => {
         setSelectedProject(project);
+        navigate("/projects/" + project.id + "/dashboard");
     };
 
     return (

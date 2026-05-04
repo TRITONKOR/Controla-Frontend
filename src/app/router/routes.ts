@@ -3,9 +3,10 @@ export const ROUTES = {
     LOGIN: "/login",
     GREETING: "/greeting",
     REGISTER: "/register",
-    DASHBOARD: "/dashboard",
+    DASHBOARD: "/projects/:projectId/dashboard",
     EMPLOYEES: "/employees",
+    PROJECT_EMPLOYEES: "/projects/:projectId/employees",
     PROJECTS: "/projects",
-    TASKS: "/tasks",
     REPORTS: "/reports",
+    PROJECT_SETTINGS: "/projects/:projectId/settings",
 } as const;

@@ -4,7 +4,7 @@ export interface User {
     firstName: string;
     lastName: string;
     avatar?: string;
-    role: "admin" | "manager" | "employee" | "pending";
+    role: "ADMIN" | "MANAGER" | "EMPLOYEE" | "PENDING";
     departmentId?: string;
     isActive: boolean;
 }

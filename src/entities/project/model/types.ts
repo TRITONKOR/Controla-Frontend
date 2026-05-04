@@ -2,7 +2,7 @@ export interface TaskShortResponse {
     id: string;
     title: string;
     description: string;
-    status: "todo" | "in_progress" | "done";
+    status: "TO_DO" | "IN_PROGRESS" | "REVIEW" | "DONE";
 }
 
 export interface EmployeeShortResponse {
@@ -20,7 +20,7 @@ export interface ProjectResponse {
     ownerFirstName: string;
     ownerLastName: string;
     ownerAvatar: string;
-    status: "active" | "completed" | "archived";
+    status: "ACTIVE" | "COMPLETED" | "ARCHIVED";
     costs: number;
     deadline: string;
     tasks: TaskShortResponse[];

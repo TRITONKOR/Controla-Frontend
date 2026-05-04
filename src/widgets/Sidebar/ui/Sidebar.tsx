@@ -1,4 +1,5 @@
 import { ROUTES } from "@/app/router/routes";
+import type { ProjectResponse } from "@/entities/project";
 import { useProjectStore } from "@/entities/project";
 import { NavLink } from "react-router-dom";
 
@@ -18,14 +19,24 @@ interface NavItem {
 const NAV_ITEMS_WITH_SELECTED_PROJECT: NavItem[] = [
     { label: "Дошка", icon: dashboardIcon, to: ROUTES.DASHBOARD },
     { label: "Працівники", icon: usersIcon, to: ROUTES.EMPLOYEES },
-    { label: "Статистика", icon: timelineIcon, to: ROUTES.PROJECTS },
-    { label: "Налаштування", icon: settingsIcon, to: ROUTES.REPORTS },
+    { label: "Статистика", icon: timelineIcon, to: ROUTES.REPORTS },
+    { label: "Налаштування", icon: settingsIcon, to: ROUTES.PROJECT_SETTINGS },
 ];
 
 const NAV_ITEMS: NavItem[] = [
     { label: "Проєкти", icon: dashboardIcon, to: ROUTES.PROJECTS },
     { label: "Працівники", icon: usersIcon, to: ROUTES.EMPLOYEES },
 ];
+
+const getNavLink = (
+    to: string,
+    selectedProject: ProjectResponse | null,
+): string => {
+    if (!selectedProject) return to;
+    return to
+        .replace(":projectId", selectedProject.id)
+        .replace(":projectIdParam", selectedProject.id);
+};
 
 export const Sidebar = () => {
     const selectedProject = useProjectStore((s) => s.selectedProject);
@@ -42,18 +53,21 @@ export const Sidebar = () => {
             </div>
             <nav className="sidebar__nav">
                 <span className="sidebar__group-label">Проєкт</span>
-                {navItems.map(({ label, icon, to }) => (
-                    <NavLink
-                        key={to}
-                        to={to}
-                        className={({ isActive }) =>
-                            `sidebar__link${isActive ? " sidebar__link--active" : ""}`
-                        }
-                    >
-                        <img src={icon} alt="" className="sidebar__icon" />
-                        <span>{label}</span>
-                    </NavLink>
-                ))}
+                {navItems.map(({ label, icon, to }) => {
+                    const href = getNavLink(to, selectedProject);
+                    return (
+                        <NavLink
+                            key={to}
+                            to={href}
+                            className={({ isActive }) =>
+                                `sidebar__link${isActive ? " sidebar__link--active" : ""}`
+                            }
+                        >
+                            <img src={icon} alt="" className="sidebar__icon" />
+                            <span>{label}</span>
+                        </NavLink>
+                    );
+                })}
             </nav>
         </div>
     );

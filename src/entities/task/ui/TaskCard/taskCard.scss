@@ -1,0 +1,108 @@
+.task-card {
+    border: 1px solid #d9dce3;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(30, 33, 44, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(30, 33, 44, 0.1);
+        transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+        outline: 2px solid #5862ff;
+        outline-offset: 2px;
+    }
+}
+
+.task-card__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #212739;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.task-card__description {
+    margin: 0;
+    font-size: 13px;
+    color: #636b80;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.task-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f0f1f3;
+}
+
+.task-card__assignees {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.task-card__assignee {
+    display: inline-block;
+}
+
+.task-card__avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background: #f0f1f9;
+    object-fit: cover;
+    display: block;
+}
+
+.task-card__avatar--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a5177;
+}
+
+.task-card__assignee--count {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f0f1f9;
+    border: 2px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a5177;
+}
+
+.task-card__attachments-badge {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
+    color: #636b80;
+    background: #f5f6f9;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+    white-space: nowrap;
+}

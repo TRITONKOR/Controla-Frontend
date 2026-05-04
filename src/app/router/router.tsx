@@ -5,7 +5,6 @@ import { LoginPage } from "@/pages/LoginPage";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { ReportsPage } from "@/pages/ReportsPage";
-import { TasksPage } from "@/pages/TasksPage";
 import { SidebarLayout } from "@/widgets/SidebarLayout";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
@@ -54,10 +53,6 @@ export const router = createBrowserRouter([
                     {
                         path: ROUTES.EMPLOYEES,
                         element: <EmployeesPage />,
-                    },
-                    {
-                        path: ROUTES.TASKS,
-                        element: <TasksPage />,
                     },
                     {
                         path: ROUTES.REPORTS,
