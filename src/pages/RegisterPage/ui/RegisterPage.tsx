@@ -10,7 +10,6 @@ import { useAuthStore } from "@/app/store/authStore";
 import { Input } from "../../../shared/ui/AuthInput";
 import { PasswordInput } from "../../../shared/ui/PasswordInput/ui/PasswordInput";
 
-import googleIconUrl from "@/assets/google-icon.png";
 import logoUrl from "@/assets/logo.png";
 
 import "./registerPage.scss";
@@ -127,13 +126,6 @@ export const RegisterPage = () => {
                         {isSubmitting ? "Реєстрація..." : "Зареєструватися"}
                     </button>
                 </form>
-
-                <div className="register__divider">АБО</div>
-
-                <button className="register__google" type="button">
-                    <img src={googleIconUrl} alt="Google" />
-                    Зареєструватися через Google
-                </button>
 
                 <p className="register__footer">
                     Вже маєте акаунт? <a href="/login">Увійти</a>

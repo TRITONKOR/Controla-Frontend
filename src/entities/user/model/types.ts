@@ -10,3 +10,10 @@ export interface User {
 }
 
 export type AuthUser = Pick<User, "id" | "email" | "firstName" | "lastName">;
+
+export interface UserStatusResponse {
+    userId: string;
+    role: "ADMIN" | "MANAGER" | "EMPLOYEE" | "PENDING";
+    isApproved: boolean;
+    isActive: boolean;
+}

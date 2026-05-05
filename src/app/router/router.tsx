@@ -2,12 +2,14 @@ import { DashboardPage } from "@/pages/DashboardPage";
 import { EmployeesPage } from "@/pages/EmployeesPage";
 import { GreetingPage } from "@/pages/GreetingPage";
 import { LoginPage } from "@/pages/LoginPage";
+import { PendingApprovalPage } from "@/pages/PendingApprovalPage";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { ReportsPage } from "@/pages/ReportsPage";
 import { SidebarLayout } from "@/widgets/SidebarLayout";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
+import { ProtectedRoute } from "./ProtectedRoute";
 import { RootLayout } from "./RootLayout";
 import { ROUTES } from "./routes";
 
@@ -36,10 +38,16 @@ export const router = createBrowserRouter([
                 ),
             },
             {
+                path: ROUTES.PENDING_APPROVAL,
+                element: <PendingApprovalPage />,
+            },
+            {
                 element: (
-                    <SidebarLayout>
-                        <Outlet />
-                    </SidebarLayout>
+                    <ProtectedRoute>
+                        <SidebarLayout>
+                            <Outlet />
+                        </SidebarLayout>
+                    </ProtectedRoute>
                 ),
                 children: [
                     {

@@ -1,0 +1,102 @@
+.pending-approval {
+	--pending-bg: linear-gradient(165deg, #f6fbff 0%, #f9f5ff 48%, #eef8f7 100%);
+	--pending-card-bg: rgba(255, 255, 255, 0.9);
+	--pending-border: rgba(61, 126, 227, 0.2);
+	--pending-title: #1b345f;
+	--pending-text: #48607f;
+
+	position: relative;
+	display: flex;
+	flex: 1;
+	min-height: 100%;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 16px;
+	padding: 36px 20px;
+	text-align: center;
+	box-sizing: border-box;
+	background: var(--pending-bg);
+	overflow: hidden;
+
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		border-radius: 999px;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	&::before {
+		width: 280px;
+		height: 280px;
+		top: -120px;
+		left: -70px;
+		background: radial-gradient(circle, rgba(54, 148, 233, 0.24) 0%, rgba(54, 148, 233, 0) 70%);
+	}
+
+	&::after {
+		width: 240px;
+		height: 240px;
+		bottom: -100px;
+		right: -80px;
+		background: radial-gradient(circle, rgba(116, 219, 195, 0.22) 0%, rgba(116, 219, 195, 0) 70%);
+	}
+
+	&__title,
+	&__message,
+	&__gif {
+		position: relative;
+		z-index: 1;
+	}
+
+	&__title {
+		margin: 0;
+		max-width: 760px;
+		font-size: clamp(1.55rem, 3vw, 2.2rem);
+		line-height: 1.2;
+		font-family: var(--inter);
+		font-weight: 700;
+		color: var(--pending-title);
+		letter-spacing: -0.4px;
+	}
+
+	&__message {
+		margin: 0;
+		max-width: 700px;
+		padding: 16px 20px;
+		font-family: var(--inter);
+		font-size: clamp(0.98rem, 1.8vw, 1.08rem);
+		line-height: 1.6;
+		color: var(--pending-text);
+		border: 1px solid var(--pending-border);
+		border-radius: 14px;
+		background: var(--pending-card-bg);
+		backdrop-filter: blur(4px);
+		box-shadow: 0 10px 30px rgba(33, 74, 130, 0.08);
+	}
+
+	&__gif {
+		margin-top: 8px;
+		width: min(180px, 100%);
+		height: auto;
+		object-fit: contain;
+		border-radius: 18px;
+		box-shadow: 0 14px 38px rgba(26, 58, 102, 0.18);
+	}
+
+	@media (max-width: 768px) {
+		padding: 24px 14px;
+		border-radius: 18px;
+
+		&__message {
+			padding: 14px 16px;
+		}
+
+		&__gif {
+			width: min(300px, 100%);
+			border-radius: 14px;
+		}
+	}
+}

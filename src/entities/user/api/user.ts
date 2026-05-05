@@ -1,5 +1,5 @@
-import type { User } from "@/entities/user/model/types";
-import { api } from "../axios";
+import { api } from "@/api";
+import type { User, UserStatusResponse } from "@/entities/user/model/types";
 
 export interface UpdateUserPayload {
     firstName?: string;
@@ -18,4 +18,7 @@ export const userApi = {
         api.patch<User>(`/users/${id}`, payload),
 
     delete: (id: number) => api.delete(`/users/${id}`),
+
+    isApproved: (userId: string) =>
+        api.get<UserStatusResponse>(`/users/${userId}/status`),
 };

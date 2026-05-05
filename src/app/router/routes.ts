@@ -9,4 +9,5 @@ export const ROUTES = {
     PROJECTS: "/projects",
     REPORTS: "/reports",
     PROJECT_SETTINGS: "/projects/:projectId/settings",
+    PENDING_APPROVAL: "/pending-approval",
 } as const;

@@ -10,7 +10,6 @@ import { useAuthStore } from "@/app/store/authStore";
 import { Input } from "../../../shared/ui/AuthInput";
 import { PasswordInput } from "../../../shared/ui/PasswordInput/ui/PasswordInput";
 
-import googleIconUrl from "@/assets/google-icon.png";
 import logoUrl from "@/assets/logo.png";
 
 import "./loginPage.scss";
@@ -99,13 +98,6 @@ export const LoginPage = () => {
                         {isSubmitting ? "Вхід..." : "Увійти"}
                     </button>
                 </form>
-
-                <div className="login__divider">АБО</div>
-
-                <button className="login__google" type="button">
-                    <img src={googleIconUrl} alt="Google" />
-                    Увійти через Google
-                </button>
 
                 <p className="login__footer">
                     Ще немає акаунта? <a href="/register">Зареєструватися</a>

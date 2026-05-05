@@ -26,7 +26,7 @@ export const ProjectsList: FC<ProjectsListProps> = ({
             {projects.map((project) => {
                 const totalTasks = project.tasks.length;
                 const doneTasks = project.tasks.filter(
-                    (t) => t.status === "done",
+                    (t) => t.status === "DONE",
                 ).length;
                 const leaderName =
                     project.ownerFirstName && project.ownerLastName
