@@ -26,3 +26,10 @@ export interface ProjectResponse {
     tasks: TaskShortResponse[];
     assignees: EmployeeShortResponse[];
 }
+
+export interface CreateProjectRequest {
+    title: string;
+    description: string;
+    costs: number;
+    deadline: string;
+}

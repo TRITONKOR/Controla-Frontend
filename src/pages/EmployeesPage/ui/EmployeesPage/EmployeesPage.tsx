@@ -19,7 +19,10 @@ export const EmployeesPage = () => {
 
     useEffect(() => {
         if (selectedProject) {
-            //employeeApi.getAll().then(setEmployees).catch(console.error);
+            employeeApi
+                .getAllByProject(selectedProject.id)
+                .then(setEmployees)
+                .catch(console.error);
         } else {
             employeeApi.getAll().then(setEmployees).catch(console.error);
         }

@@ -6,4 +6,10 @@ export const employeeApi = {
         const response = await api.get<EmployeeResponse[]>("/employees");
         return response.data;
     },
+    getAllByProject: async (projectId: string): Promise<EmployeeResponse[]> => {
+        const response = await api.get<EmployeeResponse[]>(
+            `/projects/${projectId}/employees`,
+        );
+        return response.data;
+    },
 };

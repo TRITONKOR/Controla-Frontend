@@ -7,6 +7,7 @@ export const ROUTES = {
     EMPLOYEES: "/employees",
     PROJECT_EMPLOYEES: "/projects/:projectId/employees",
     PROJECTS: "/projects",
+    CREATE_PROJECT: "/projects/create",
     REPORTS: "/reports",
     PROJECT_SETTINGS: "/projects/:projectId/settings",
     PENDING_APPROVAL: "/pending-approval",
