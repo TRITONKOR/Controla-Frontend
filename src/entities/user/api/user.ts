@@ -8,17 +8,42 @@ export interface UpdateUserPayload {
 }
 
 export const userApi = {
-    getMe: () => api.get<User>("/users/me"),
-
     getAll: () => api.get<User[]>("/users"),
 
-    getById: (id: number) => api.get<User>(`/users/${id}`),
+    getById: async (userId: string) => {
+        const response = await api.get<User>(`/users/${userId}`);
+        return response.data;
+    },
 
-    update: (id: number, payload: UpdateUserPayload) =>
-        api.patch<User>(`/users/${id}`, payload),
+    update: async (userId: string, payload: UpdateUserPayload) => {
+        const response = await api.patch<User>(`/users/${userId}`, payload);
+        return response.data;
+    },
 
-    delete: (id: number) => api.delete(`/users/${id}`),
+    uploadAvatar: async (userId: string, file: File) => {
+        const formData = new FormData();
+        formData.append("avatar", file);
+        const response = await api.patch<User>(
+            `/users/${userId}/avatar`,
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            },
+        );
+        return response.data;
+    },
 
-    isApproved: (userId: string) =>
-        api.get<UserStatusResponse>(`/users/${userId}/status`),
+    delete: async (userId: string) => {
+        const response = await api.delete(`/users/${userId}`);
+        return response.data;
+    },
+
+    isApproved: async (userId: string) => {
+        const response = await api.get<UserStatusResponse>(
+            `/users/${userId}/status`,
+        );
+        return response.data;
+    },
 };

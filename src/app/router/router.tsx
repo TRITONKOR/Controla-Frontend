@@ -3,6 +3,7 @@ import { EmployeesPage } from "@/pages/EmployeesPage";
 import { GreetingPage } from "@/pages/GreetingPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { PendingApprovalPage } from "@/pages/PendingApprovalPage";
+import { ProfilePage } from "@/pages/ProfilePage";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { ReportsPage } from "@/pages/ReportsPage";
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
                     {
                         path: ROUTES.REPORTS,
                         element: <ReportsPage />,
+                    },
+                    {
+                        path: ROUTES.PROFILE,
+                        element: <ProfilePage />,
                     },
                 ],
             },

@@ -16,4 +16,11 @@ export const projectApi = {
         const response = await api.post<ProjectResponse>("/projects", data);
         return response.data;
     },
+
+    getByUserId: async (userId: string): Promise<ProjectResponse[]> => {
+        const response = await api.get<ProjectResponse[]>(
+            `/users/${userId}/projects`,
+        );
+        return response.data;
+    },
 };

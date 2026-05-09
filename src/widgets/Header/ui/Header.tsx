@@ -1,6 +1,5 @@
 import logoUrl from "@/assets/logo.png";
 
-import { authApi } from "@/api";
 import { ROUTES } from "@/app/router/routes";
 import { useAuthStore } from "@/app/store/authStore";
 import { useProjectStore } from "@/entities/project";
@@ -9,22 +8,13 @@ import { useNavigate } from "react-router";
 import "./header.scss";
 
 export const Header = () => {
-    const clearAuth = useAuthStore((s) => s.clearAuth);
     const setSelectedProject = useProjectStore((s) => s.setSelectedProject);
 
     const navigate = useNavigate();
     const user = useAuthStore((s) => s.user);
 
     const handleProfileClick = async () => {
-        //navigate(ROUTES.DASHBOARD);
-
-        // temporary
-        try {
-            await authApi.logout();
-        } finally {
-            clearAuth();
-            navigate(ROUTES.LOGIN);
-        }
+        navigate(ROUTES.PROFILE);
     };
 
     const handleLogoClick = () => {

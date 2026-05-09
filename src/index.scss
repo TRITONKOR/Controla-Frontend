@@ -49,32 +49,13 @@ body {
 
 h1,
 h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+  font-size: clamp(28px, 4vw, 40px);
+	font-weight: 700;
+	color: var(--text-h);
+	letter-spacing: -0.03em;
 }
 
-h1 {
-  margin: 32px 0;
-  font-size: 56px;
-  letter-spacing: -1.68px;
 
-  @media (width <= 1024px) {
-    margin: 20px 0;
-    font-size: 36px;
-  }
-}
-
-h2 {
-  margin: 0 0 8px;
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-
-  @media (width <= 1024px) {
-    font-size: 20px;
-  }
-}
 
 p {
   margin: 0;

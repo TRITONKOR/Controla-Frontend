@@ -17,3 +17,17 @@ export interface UserStatusResponse {
     isApproved: boolean;
     isActive: boolean;
 }
+
+export interface UserDetailedResponse extends User {
+    firstName: string;
+    lastName: string;
+}
+
+export interface UserUpdateRequest {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    avatar?: string;
+    role?: "ADMIN" | "MANAGER" | "EMPLOYEE" | "PENDING";
+    departmentId?: string;
+}
