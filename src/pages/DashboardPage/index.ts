@@ -1,1 +1,2 @@
-export { DashboardPage } from "./ui/DashboardPage";
+export { CreateTaskModal } from "./ui/CreateTaskModal/CreateTaskModal";
+export { DashboardPage } from "./ui/DashboardPage/DashboardPage";

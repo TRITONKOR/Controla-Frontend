@@ -53,7 +53,7 @@ export const EmployeesList: FC<EmployeesListProps> = ({
                             {employee.avatar ? (
                                 <img
                                     className="employee-card__avatar"
-                                    src={employee.avatar}
+                                    src={`data:image/png;base64,${employee.avatar}`}
                                     alt={fullName || "Employee avatar"}
                                 />
                             ) : (

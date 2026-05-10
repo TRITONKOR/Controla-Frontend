@@ -4,6 +4,7 @@ import { taskApi } from "@/entities/task/api/task";
 import { TasksList } from "@/entities/task/ui/TasksList/TasksList";
 import { useEffect, useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { CreateTaskModal } from "../CreateTaskModal/CreateTaskModal";
 import "./dashboardPage.scss";
 
 const COLUMNS: Array<{
@@ -24,6 +25,10 @@ export const DashboardPage: FC = () => {
     const [dragOverStatus, setDragOverStatus] = useState<TaskStatus | null>(
         null,
     );
+    const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
+
+    const [createTaskStatus, setCreateTaskStatus] =
+        useState<TaskStatus>("TO_DO");
 
     useEffect(() => {
         if (!selectedProject) {
@@ -76,9 +81,18 @@ export const DashboardPage: FC = () => {
         }
     };
 
+    const handleOpenCreateTask = (status: TaskStatus) => {
+        setCreateTaskStatus(status);
+        setIsCreateTaskOpen(true);
+    };
+
     return (
         <div className="dashboard-page">
-            <div className="dashboard-page__header"></div>
+            <div className="dashboard-page__header">
+                <h1 className="dashboard-page__title">
+                    Дошка завдань - {selectedProject?.title}
+                </h1>
+            </div>
             <div className="dashboard-page__content">
                 {COLUMNS.map((column) => (
                     <TasksList
@@ -101,9 +115,24 @@ export const DashboardPage: FC = () => {
                             }
                         }}
                         onTaskDrop={handleTaskDrop}
+                        onCreateTask={handleOpenCreateTask}
                     />
                 ))}
             </div>
+            <CreateTaskModal
+                isOpen={isCreateTaskOpen}
+                status={createTaskStatus}
+                onClose={() => setIsCreateTaskOpen(false)}
+                onSuccess={async () => {
+                    if (!selectedProject) return;
+
+                    const updatedTasks = await taskApi.getByProject(
+                        selectedProject.id,
+                    );
+
+                    setTasks(updatedTasks);
+                }}
+            />
         </div>
     );
 };

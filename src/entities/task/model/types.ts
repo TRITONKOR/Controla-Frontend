@@ -20,6 +20,7 @@ export interface AssigneeShort {
 export interface CreateTaskRequest {
     title: string;
     description: string;
+    status: TaskStatus;
     projectId: string;
-    attachments?: string;
+    attachments?: string[];
 }

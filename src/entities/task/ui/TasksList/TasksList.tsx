@@ -13,6 +13,7 @@ export interface TasksListProps {
     onTaskDrop: (taskId: string, nextStatus: TaskStatus) => void;
     onColumnDragOver: (status: TaskStatus) => void;
     onColumnDragLeave: () => void;
+    onCreateTask: (status: TaskStatus) => void;
 }
 
 export const TasksList: FC<TasksListProps> = ({
@@ -25,6 +26,7 @@ export const TasksList: FC<TasksListProps> = ({
     onTaskDrop,
     onColumnDragOver,
     onColumnDragLeave,
+    onCreateTask,
 }) => {
     const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
         event.preventDefault();
@@ -51,8 +53,17 @@ export const TasksList: FC<TasksListProps> = ({
             onDragLeave={onColumnDragLeave}
         >
             <div className="tasks-list__header">
-                <h2 className="tasks-list__title">{title}</h2>
-                <span className="tasks-list__count">{tasks.length}</span>
+                <div>
+                    <h2 className="tasks-list__title">{title}</h2>
+                    <span className="tasks-list__count">{tasks.length}</span>
+                </div>
+
+                <button
+                    className="tasks-list__create-btn"
+                    onClick={() => onCreateTask(status)}
+                >
+                    +
+                </button>
             </div>
             <div className="tasks-list__items">
                 {tasks.length === 0 ? (

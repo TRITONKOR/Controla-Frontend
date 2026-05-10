@@ -21,4 +21,14 @@ export const taskApi = {
         );
         return response.data;
     },
+
+    createTask: async (formData: FormData) => {
+        const response = await api.post("/tasks", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        return response.data;
+    },
 };
