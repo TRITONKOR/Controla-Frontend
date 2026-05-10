@@ -17,8 +17,8 @@ export const PendingApprovalPage: FC = () => {
 
         const check = async () => {
             try {
-                const { data } = await userApi.isApproved(user.id);
-                if (data.isApproved && data.role !== "PENDING") {
+                const response = await userApi.isApproved(user.id);
+                if (response.isApproved && response.role !== "PENDING") {
                     const refreshed = await authApi.refresh();
                     setAuth(refreshed.user, refreshed.accessToken);
                     navigate(ROUTES.HOME, { replace: true });

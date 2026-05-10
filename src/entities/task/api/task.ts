@@ -31,4 +31,35 @@ export const taskApi = {
 
         return response.data;
     },
+
+    downloadAttachment: async (attachmentUrl: string) => {
+        const response = await api.get(attachmentUrl, {
+            responseType: "blob",
+        });
+
+        const contentDisposition = response.headers["content-disposition"];
+        let filename = "attachment";
+
+        if (contentDisposition) {
+            const rfc5987Match = contentDisposition.match(
+                /filename\*=UTF-8''([^;\s]+)/i,
+            );
+            const plainMatch = contentDisposition.match(/filename="([^"]+)"/);
+
+            if (rfc5987Match?.[1]) {
+                filename = decodeURIComponent(rfc5987Match[1]);
+            } else if (plainMatch?.[1]) {
+                filename = plainMatch[1];
+            }
+        }
+
+        const url = window.URL.createObjectURL(response.data);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    },
 };

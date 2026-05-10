@@ -124,6 +124,7 @@ export const CreateTaskModal = ({
                     <label className="create-task__label">Вкладення</label>
 
                     <input
+                        className="create-task__file-input"
                         type="file"
                         accept=".png,.jpg,.jpeg,.pdf,.doc,.docx"
                         onChange={(event) => {
@@ -134,6 +135,12 @@ export const CreateTaskModal = ({
                             }
                         }}
                     />
+
+                    {attachment && (
+                        <span className="create-task__file-name">
+                            {attachment.name}
+                        </span>
+                    )}
                 </div>
 
                 {serverError && (

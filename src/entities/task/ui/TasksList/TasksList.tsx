@@ -14,6 +14,7 @@ export interface TasksListProps {
     onColumnDragOver: (status: TaskStatus) => void;
     onColumnDragLeave: () => void;
     onCreateTask: (status: TaskStatus) => void;
+    onTaskSelect: (task: TaskResponse) => void;
 }
 
 export const TasksList: FC<TasksListProps> = ({
@@ -27,6 +28,7 @@ export const TasksList: FC<TasksListProps> = ({
     onColumnDragOver,
     onColumnDragLeave,
     onCreateTask,
+    onTaskSelect,
 }) => {
     const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
         event.preventDefault();
@@ -82,6 +84,7 @@ export const TasksList: FC<TasksListProps> = ({
                                 onTaskDragStart(task.id);
                             }}
                             onDragEnd={onTaskDragEnd}
+                            onTaskSelect={() => onTaskSelect(task)}
                         />
                     ))
                 )}

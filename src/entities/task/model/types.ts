@@ -5,7 +5,7 @@ export interface TaskResponse {
     title: string;
     description: string;
     status: TaskStatus;
-    attachments: string[];
+    attachmentUrl: string;
     assignees: AssigneeShort[];
 }
 
@@ -22,5 +22,5 @@ export interface CreateTaskRequest {
     description: string;
     status: TaskStatus;
     projectId: string;
-    attachments?: string[];
+    attachmentUrl?: string;
 }

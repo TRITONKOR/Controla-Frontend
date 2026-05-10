@@ -1,7 +1,7 @@
 import { useProjectStore } from "@/entities/project";
 import type { TaskResponse, TaskStatus } from "@/entities/task";
-import { taskApi } from "@/entities/task/api/task";
-import { TasksList } from "@/entities/task/ui/TasksList/TasksList";
+import { TasksList, taskApi } from "@/entities/task";
+import { useTaskStore } from "@/entities/task/model/taskStore";
 import { useEffect, useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateTaskModal } from "../CreateTaskModal/CreateTaskModal";
@@ -20,6 +20,7 @@ const COLUMNS: Array<{
 export const DashboardPage: FC = () => {
     const navigate = useNavigate();
     const selectedProject = useProjectStore((s) => s.selectedProject);
+    const setSelectedTask = useTaskStore((s) => s.setSelectedTask);
     const [tasks, setTasks] = useState<TaskResponse[]>([]);
     const [draggedTaskId, setDraggedTaskId] = useState<string | null>(null);
     const [dragOverStatus, setDragOverStatus] = useState<TaskStatus | null>(
@@ -86,6 +87,11 @@ export const DashboardPage: FC = () => {
         setIsCreateTaskOpen(true);
     };
 
+    const handleTaskSelect = (task: TaskResponse) => {
+        setSelectedTask(task);
+        navigate("/projects/" + selectedProject?.id + "/dashboard/" + task.id);
+    };
+
     return (
         <div className="dashboard-page">
             <div className="dashboard-page__header">
@@ -116,9 +122,11 @@ export const DashboardPage: FC = () => {
                         }}
                         onTaskDrop={handleTaskDrop}
                         onCreateTask={handleOpenCreateTask}
+                        onTaskSelect={handleTaskSelect}
                     />
                 ))}
             </div>
+
             <CreateTaskModal
                 isOpen={isCreateTaskOpen}
                 status={createTaskStatus}

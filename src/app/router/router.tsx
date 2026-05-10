@@ -1,3 +1,4 @@
+import { TaskPage } from "@/entities/task";
 import { DashboardPage } from "@/pages/DashboardPage";
 import { EmployeesPage } from "@/pages/EmployeesPage";
 import { GreetingPage } from "@/pages/GreetingPage";
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
                     {
                         path: ROUTES.DASHBOARD,
                         element: <DashboardPage />,
+                    },
+                    {
+                        path: ROUTES.TASK,
+                        element: <TaskPage />,
                     },
                     {
                         path: ROUTES.EMPLOYEES,

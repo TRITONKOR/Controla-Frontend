@@ -8,6 +8,7 @@ export interface TaskCardProps {
     draggable?: boolean;
     onDragStart?: DragEventHandler<HTMLDivElement>;
     onDragEnd?: DragEventHandler<HTMLDivElement>;
+    onTaskSelect?: (task: TaskResponse) => void;
 }
 
 const getInitials = (firstName?: string, lastName?: string): string => {
@@ -18,15 +19,15 @@ const getInitials = (firstName?: string, lastName?: string): string => {
 
 export const TaskCard: FC<TaskCardProps> = ({
     task,
-    onClick,
     draggable,
     onDragStart,
     onDragEnd,
+    onTaskSelect,
 }) => {
     return (
         <div
             className="task-card"
-            onClick={onClick}
+            onClick={() => onTaskSelect?.(task)}
             role="button"
             tabIndex={0}
             draggable={draggable}
@@ -73,9 +74,9 @@ export const TaskCard: FC<TaskCardProps> = ({
                     )}
                 </div>
 
-                {task.attachments?.length > 0 && (
+                {task.attachmentUrl?.length > 0 && (
                     <div className="task-card__attachments-badge">
-                        📎 {task.attachments.length}
+                        📎 {task.attachmentUrl.length}
                     </div>
                 )}
             </div>

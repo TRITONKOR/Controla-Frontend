@@ -4,6 +4,7 @@ export const ROUTES = {
     GREETING: "/greeting",
     REGISTER: "/register",
     DASHBOARD: "/projects/:projectId/dashboard",
+    TASK: "/projects/:projectId/dashboard/:taskId",
     EMPLOYEES: "/employees",
     PROJECT_EMPLOYEES: "/projects/:projectId/employees",
     PROJECTS: "/projects",
