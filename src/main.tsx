@@ -1,11 +1,6 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "./api/interceptors";
 import App from "./App.tsx";
 import "./index.scss";
-import "./api/interceptors";
 
-createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-        <App />
-    </StrictMode>,
-);
+createRoot(document.getElementById("root")!).render(<App />);

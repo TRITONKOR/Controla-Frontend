@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { ROUTES } from "./routes";
 
-interface ProtectedRouteProps {
+interface AdminRouteProps {
     children: ReactNode;
 }
 
-export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+export const AdminRoute = ({ children }: AdminRouteProps) => {
     const user = useAuthStore((state) => state.user);
     const accessToken = useAuthStore((state) => state.accessToken);
 
@@ -15,12 +15,8 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         return <Navigate to={ROUTES.GREETING} replace />;
     }
 
-    if (user.role === "PENDING") {
-        return <Navigate to={ROUTES.PENDING_APPROVAL} replace />;
-    }
-
-    if (user.role === "ADMIN") {
-        return <Navigate to={ROUTES.ADMIN} replace />;
+    if (user.role !== "ADMIN") {
+        return <Navigate to={ROUTES.HOME} replace />;
     }
 
     return <>{children}</>;

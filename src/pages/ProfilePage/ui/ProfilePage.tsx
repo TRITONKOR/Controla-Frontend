@@ -1,5 +1,6 @@
 import { useEffect, useState, type FC, type KeyboardEvent } from "react";
 
+import { authApi } from "@/api/auth";
 import { useAuthStore } from "@/app/store/authStore";
 import {
     projectApi,
@@ -36,6 +37,7 @@ const profileFieldSchema = z.object({
 
 export const ProfilePage: FC = () => {
     const userId = useAuthStore((state) => state.user?.id);
+    const clearAuth = useAuthStore((state) => state.clearAuth);
     const setSelectedProject = useProjectStore(
         (state) => state.setSelectedProject,
     );
@@ -157,6 +159,17 @@ export const ProfilePage: FC = () => {
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            await authApi.logout();
+        } catch (error) {
+            console.error("Помилка при виході:", error);
+        } finally {
+            clearAuth();
+            navigate("/login");
+        }
+    };
+
     const renderEditableField = (label: string, field: EditableFields) => {
         const isEditing = editingField === field;
 
@@ -208,6 +221,12 @@ export const ProfilePage: FC = () => {
         <div className="profile-page">
             <div className="profile-page__header">
                 <h1>Профіль</h1>
+                <button
+                    className="profile-page__logout-btn"
+                    onClick={handleLogout}
+                >
+                    Вихід
+                </button>
             </div>
             <div className="profile-page__content">
                 {user ? (

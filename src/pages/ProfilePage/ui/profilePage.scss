@@ -13,14 +13,48 @@
 
 	&__header {
 		margin-bottom: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
 
 		h1 {
 			margin: 0;
-      text-align: left;
+			text-align: left;
 			font-size: clamp(28px, 4vw, 40px);
 			font-weight: 700;
 			color: var(--text-h);
 			letter-spacing: -0.03em;
+		}
+	}
+
+	&__logout-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 42px;
+		padding: 0 18px;
+		border: 1px solid #e11d48;
+		border-radius: 12px;
+		background: transparent;
+		color: #e11d48;
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			color 0.2s ease,
+			box-shadow 0.2s ease;
+		white-space: nowrap;
+
+		&:hover {
+			background: #e11d48;
+			color: #fff;
+			box-shadow: 0 4px 12px rgb(225 29 72 / 20%);
+		}
+
+		&:active {
+			transform: scale(0.98);
 		}
 	}
 
@@ -265,6 +299,12 @@
 
 		&__header {
 			margin-bottom: 20px;
+		}
+
+		&__logout-btn {
+			height: 38px;
+			padding: 0 14px;
+			font-size: 13px;
 		}
 
 		&__info,

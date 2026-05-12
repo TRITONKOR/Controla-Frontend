@@ -1,0 +1,276 @@
+.admin-page {
+	--admin-surface: #ffffff;
+	--admin-border: #dbe4f0;
+	--admin-title: #0f172a;
+	--admin-text: #475569;
+
+	display: flex;
+	align-items: stretch;
+	width: 100%;
+	min-height: 100%;
+	box-sizing: border-box;
+
+	&__content {
+		flex: 1;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		padding: 20px;
+		background: color-mix(in srgb, var(--admin-surface) 90%, #f4f8ff 10%);
+		box-shadow:
+			0 16px 38px rgb(15 23 42 / 8%),
+			0 2px 8px rgb(15 23 42 / 5%);
+		overflow-x: auto;
+		overflow-y: auto;
+	}
+
+	.users-table,
+	.projects-table,
+	.approval-table {
+		border: 1px solid #e2e8f0;
+		border-radius: 20px;
+		background: #fff;
+		box-shadow:
+			0 12px 32px rgb(15 23 42 / 6%),
+			0 2px 8px rgb(15 23 42 / 4%);
+		overflow: hidden;
+
+		&__header {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+			padding: 20px 24px;
+			background:
+				linear-gradient(
+					120deg,
+					rgb(14 165 233 / 12%) 0%,
+					rgb(99 102 241 / 10%) 100%
+				);
+			border-bottom: 1px solid #dbeafe;
+
+			h2 {
+				margin: 0;
+				font-size: clamp(20px, 2.5vw, 26px);
+				font-weight: 800;
+				letter-spacing: -0.02em;
+				color: #0f172a;
+			}
+		}
+
+		&__table {
+			width: 100%;
+			border-collapse: collapse;
+			background: #fff;
+
+			thead {
+				background: #f8fafc;
+
+				th {
+					padding: 14px 18px;
+					text-align: center;
+					font-size: 12px;
+					font-weight: 800;
+					letter-spacing: 0.06em;
+					text-transform: uppercase;
+					color: #475569;
+					border-bottom: 1px solid #e2e8f0;
+				}
+			}
+
+			tbody {
+				tr {
+					transition: background 0.2s ease;
+
+					&:not(:last-child) {
+						border-bottom: 1px solid #f1f5f9;
+					}
+
+					&:hover {
+						background: #f8fbff;
+					}
+				}
+
+				td {
+					padding: 14px 18px;
+					font-size: 15px;
+					font-weight: 500;
+					line-height: 1.4;
+					color: #1e293b;
+					vertical-align: middle;
+					text-align: center;
+					word-break: break-word;
+				}
+			}
+		}
+	}
+
+	.users-table__delete-btn,
+	.projects-table__delete-btn,
+	.approval-table__reject-btn {
+		appearance: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 38px;
+		padding: 0 14px;
+		border: 1px solid #fda4af;
+		border-radius: 10px;
+		background: #fff1f2;
+		color: #be123c;
+		font-size: 14px;
+		font-weight: 700;
+		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			border-color 0.2s ease,
+			transform 0.2s ease;
+
+		&:hover {
+			background: #ffe4e6;
+			border-color: #fb7185;
+		}
+
+		&:active {
+			transform: translateY(1px);
+		}
+	}
+
+  .approval-table__approve-btn {
+		appearance: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 38px;
+		padding: 0 14px;
+		border: 1px solid #22c55e;
+		border-radius: 10px;
+		background: #22c55e;
+		color: #fff;
+		font-size: 14px;
+		font-weight: 700;
+		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			border-color 0.2s ease,
+			transform 0.2s ease;
+
+		&:hover {
+			background: #16a34a;
+			border-color: #16a34a;
+		}
+
+		&:active {
+			transform: translateY(1px);
+		}
+	}
+
+
+}
+
+@media (width <= 1200px) {
+	.admin-page {
+		padding: 14px;
+		gap: 14px;
+
+		.dashboard-stats__content {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+}
+
+@media (width <= 900px) {
+	.admin-page {
+		.users-table,
+		.projects-table,
+		.approval-table {
+			&__header {
+				padding: 16px 18px;
+			}
+
+			&__table {
+				display: block;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+
+				table-layout: fixed;
+				min-width: 640px;
+
+				th,
+				td {
+					padding: 12px 14px;
+				}
+			}
+		}
+	}
+}
+
+@media (width <= 480px) {
+	.admin-page {
+		.users-table,
+		.projects-table,
+		.approval-table {
+			border-radius: 16px;
+
+			&__header h2 {
+				font-size: 18px;
+			}
+		}
+	}
+}
+
+@media (width <= 980px) {
+	.admin-page {
+		flex-direction: column;
+
+		.admin-sidebar {
+			width: 100%;
+			min-width: 0;
+			padding: 14px;
+			border-right: 0;
+			border-bottom: 1px solid var(--border);
+			border-radius: 18px;
+		}
+
+		.admin-sidebar__nav {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 8px;
+		}
+
+		.admin-sidebar__link {
+			width: 100%;
+		}
+
+		&__content {
+			padding: 14px;
+			border-radius: 18px;
+		}
+
+		.projects-table__table,
+		.approval-table__table {
+			display: block;
+			overflow-x: auto;
+			min-width: 640px;
+		}
+	}
+}
+
+@media (width <= 640px) {
+	.admin-page {
+		padding: 10px;
+
+		.dashboard-stats {
+			padding: 16px;
+
+			&__content {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		.admin-sidebar__nav {
+			grid-template-columns: 1fr;
+		}
+	}
+}

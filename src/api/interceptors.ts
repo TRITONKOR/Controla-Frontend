@@ -28,7 +28,11 @@ api.interceptors.response.use(
     async (err) => {
         const originalRequest = err.config;
 
-        if (err.response?.status === 401 && !originalRequest._retry) {
+        if (
+            err.response?.status === 401 &&
+            !originalRequest._retry &&
+            !originalRequest.url?.includes("/auth/refresh")
+        ) {
             if (isRefreshing) {
                 return new Promise((resolve, reject) => {
                     queue.push({
@@ -56,7 +60,11 @@ api.interceptors.response.use(
                 return api(originalRequest);
             } catch (e) {
                 processQueue(e, null);
+
                 useAuthStore.getState().clearAuth();
+
+                window.location.href = "/login";
+
                 return Promise.reject(e);
             } finally {
                 isRefreshing = false;

@@ -5,10 +5,14 @@ export interface UpdateUserPayload {
     firstName?: string;
     lastName?: string;
     email?: string;
+    role?: User["role"];
 }
 
 export const userApi = {
-    getAll: () => api.get<User[]>("/users"),
+    getAll: async () => {
+        const response = await api.get<User[]>("/users");
+        return response.data;
+    },
 
     getById: async (userId: string) => {
         const response = await api.get<User>(`/users/${userId}`);
@@ -35,6 +39,16 @@ export const userApi = {
         return response.data;
     },
 
+    updateRole: async (userId: string, newRole: string) => {
+        const response = await api.patch<UserStatusResponse>(
+            `/admin/users/${userId}`,
+            {
+                role: newRole,
+            },
+        );
+        return response.data;
+    },
+
     delete: async (userId: string) => {
         const response = await api.delete(`/users/${userId}`);
         return response.data;
@@ -43,6 +57,13 @@ export const userApi = {
     isApproved: async (userId: string) => {
         const response = await api.get<UserStatusResponse>(
             `/users/${userId}/status`,
+        );
+        return response.data;
+    },
+
+    approve: async (userId: string) => {
+        const response = await api.post<UserStatusResponse>(
+            `/admin/users/${userId}/approve`,
         );
         return response.data;
     },

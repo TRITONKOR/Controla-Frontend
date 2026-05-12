@@ -1,4 +1,5 @@
 import { TaskPage } from "@/entities/task";
+import { AdminPage } from "@/pages/AdminPage";
 import { DashboardPage } from "@/pages/DashboardPage";
 import { EmployeesPage } from "@/pages/EmployeesPage";
 import { GreetingPage } from "@/pages/GreetingPage";
@@ -8,8 +9,10 @@ import { ProfilePage } from "@/pages/ProfilePage";
 import { ProjectsPage } from "@/pages/ProjectsPage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { ReportsPage } from "@/pages/ReportsPage";
+import { AdminLayout } from "@/widgets/AdminLayout";
 import { SidebarLayout } from "@/widgets/SidebarLayout";
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+import { AdminRoute } from "./AdminRoute";
 import { GuestOnlyRoute } from "./GuestOnlyRoute";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { RootLayout } from "./RootLayout";
@@ -75,6 +78,21 @@ export const router = createBrowserRouter([
                     {
                         path: ROUTES.PROFILE,
                         element: <ProfilePage />,
+                    },
+                ],
+            },
+            {
+                element: (
+                    <AdminRoute>
+                        <AdminLayout>
+                            <Outlet />
+                        </AdminLayout>
+                    </AdminRoute>
+                ),
+                children: [
+                    {
+                        path: ROUTES.ADMIN,
+                        element: <AdminPage />,
                     },
                 ],
             },

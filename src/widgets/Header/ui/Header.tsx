@@ -1,6 +1,5 @@
 import logoUrl from "@/assets/logo.png";
 
-import { authApi } from "@/api";
 import { ROUTES } from "@/app/router/routes";
 import { useAuthStore } from "@/app/store/authStore";
 import { useProjectStore } from "@/entities/project";
@@ -15,11 +14,7 @@ export const Header = () => {
     const user = useAuthStore((s) => s.user);
 
     const handleProfileClick = async () => {
-        //navigate(ROUTES.PROFILE);
-        authApi.logout().then(() => {
-            useAuthStore.setState({ user: null });
-            navigate(ROUTES.LOGIN);
-        });
+        navigate(ROUTES.PROFILE);
     };
 
     const handleLogoClick = () => {
