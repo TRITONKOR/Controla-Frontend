@@ -11,9 +11,9 @@ export interface TaskResponse {
 
 export interface AssigneeShort {
     id: string;
+    userId: string;
     firstName: string;
     lastName: string;
-    position: string;
     avatarUrl: string | null;
 }
 

@@ -8,6 +8,13 @@
 	flex-direction: column;
 	gap: 24px;
 
+	&__toolbar {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
 	&__back-btn {
 		align-self: flex-start;
 		display: inline-flex;
@@ -29,6 +36,45 @@
 		&:hover {
 			background: #f8fafc;
 			border-color: #94a3b8;
+		}
+	}
+
+	&__assign-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 42px;
+		padding: 0 16px;
+		border: 1px solid #bfdbfe;
+		border-radius: 12px;
+		background: #eff6ff;
+		font-size: 14px;
+		font-weight: 600;
+		color: #1d4ed8;
+		cursor: pointer;
+		transition:
+			background 0.2s ease,
+			border-color 0.2s ease;
+
+		&:hover {
+			background: #dbeafe;
+			border-color: #93c5fd;
+		}
+
+		&--active {
+			border-color: #fca5a5;
+			background: #fff1f2;
+			color: #b91c1c;
+
+			&:hover {
+				background: #ffe4e6;
+				border-color: #fda4af;
+			}
+		}
+
+		&:disabled {
+			opacity: 0.6;
+			cursor: not-allowed;
 		}
 	}
 

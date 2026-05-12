@@ -62,4 +62,17 @@ export const taskApi = {
         link.remove();
         window.URL.revokeObjectURL(url);
     },
+    assign: async (taskId: string, userId: string) => {
+        const response = await api.post(
+            `/tasks/${taskId}/assignees/${userId}`,
+            {},
+        );
+        return response.data;
+    },
+    unassign: async (taskId: string, userId: string) => {
+        const response = await api.delete(
+            `/tasks/${taskId}/assignees/${userId}`,
+        );
+        return response.data;
+    },
 };

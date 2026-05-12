@@ -28,10 +28,15 @@ api.interceptors.response.use(
     async (err) => {
         const originalRequest = err.config;
 
+        if (originalRequest.url?.includes("/auth/refresh")) {
+            useAuthStore.getState().clearAuth();
+
+            return Promise.reject(err);
+        }
+
         if (
-            err.response?.status === 401 &&
-            !originalRequest._retry &&
-            !originalRequest.url?.includes("/auth/refresh")
+            [401, 403].includes(err.response?.status) &&
+            !originalRequest._retry
         ) {
             if (isRefreshing) {
                 return new Promise((resolve, reject) => {
@@ -57,6 +62,7 @@ api.interceptors.response.use(
                 processQueue(null, accessToken);
 
                 originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+
                 return api(originalRequest);
             } catch (e) {
                 processQueue(e, null);

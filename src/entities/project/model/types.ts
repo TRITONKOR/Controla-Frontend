@@ -7,6 +7,7 @@ export interface TaskShortResponse {
 
 export interface EmployeeShortResponse {
     id: string;
+    userId: string;
     firstName: string;
     lastName: string;
     departmentTitle: string;

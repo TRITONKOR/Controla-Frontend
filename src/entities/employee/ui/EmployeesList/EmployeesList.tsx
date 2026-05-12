@@ -64,15 +64,11 @@ export const EmployeesList: FC<EmployeesListProps> = ({
                                     )}
                                 </div>
                             )}
-                            <span className="employee-card__status" />
                         </div>
 
                         <h3 className="employee-card__name">
                             {fullName || "Невідомий працівник"}
                         </h3>
-                        <p className="employee-card__role">
-                            {employee.position || "Співробітник"}
-                        </p>
 
                         <div
                             className="employee-card__stats"
