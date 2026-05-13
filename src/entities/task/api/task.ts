@@ -9,6 +9,11 @@ export const taskApi = {
         return response.data;
     },
 
+    getByUser: async (userId: string): Promise<TaskResponse[]> => {
+        const response = await api.get<TaskResponse[]>(`/tasks/user/${userId}`);
+        return response.data;
+    },
+
     updateStatus: async (
         taskId: string,
         status: TaskStatus,

@@ -9,6 +9,7 @@ export interface Employee {
 
 export interface EmployeeResponse extends Employee {
     projectsCount: number;
-    tasksCount: number;
-    doneTasksCount: number;
+    productivity: number;
+    assignedTasksLastMonth: number;
+    completedTasksLastMonth: number;
 }

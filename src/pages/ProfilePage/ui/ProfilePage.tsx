@@ -8,6 +8,7 @@ import {
     type ProjectResponse,
 } from "@/entities/project";
 import { ProjectsList } from "@/entities/project/ui/ProjectsList/ProjectsList";
+import { ProfileTasksList, taskApi, type TaskResponse } from "@/entities/task";
 import { userApi } from "@/entities/user";
 import type { UserDetailedResponse } from "@/entities/user/model/types";
 import { AvatarUpload } from "@/shared/ui/AvatarUpload";
@@ -45,6 +46,7 @@ export const ProfilePage: FC = () => {
 
     const [user, setUser] = useState<UserDetailedResponse | null>(null);
     const [userProjects, setUserProjects] = useState<ProjectResponse[]>([]);
+    const [userTasks, setUserTasks] = useState<TaskResponse[]>([]);
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
     const [errors, setErrors] = useState<
         Partial<Record<EditableFields, string>>
@@ -75,8 +77,12 @@ export const ProfilePage: FC = () => {
 
                 const userProjects = await projectApi.getByUserId(userId);
                 setUserProjects(userProjects);
+
+                const userTasks = await taskApi.getByUser(userId);
+                setUserTasks(userTasks);
             }
         };
+
         void fetchUser();
     }, [userId]);
 
@@ -285,7 +291,7 @@ export const ProfilePage: FC = () => {
 
                                 {openedSections.tasks && (
                                     <div className="profile-page__section-content">
-                                        Тут будуть завдання
+                                        <ProfileTasksList tasks={userTasks} />
                                     </div>
                                 )}
                             </div>

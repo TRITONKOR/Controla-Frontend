@@ -1,0 +1,40 @@
+.profile-tasks-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: var(--bg);
+}
+
+.profile-tasks-list .task-card {
+    flex: 1 1 280px;
+    max-width: 420px;
+}
+
+.profile-tasks-list__empty {
+    margin: 0;
+    width: 100%;
+    padding: 18px;
+    border: 1px dashed rgb(148 163 184 / 60%);
+    border-radius: 14px;
+    background: rgb(241 245 249 / 60%);
+    color: #475569;
+    font-size: 14px;
+    text-align: center;
+}
+
+@media (width <= 768px) {
+    .profile-tasks-list {
+        gap: 14px;
+    }
+
+    .profile-tasks-list .task-card {
+        flex-basis: 100%;
+        max-width: none;
+    }
+}

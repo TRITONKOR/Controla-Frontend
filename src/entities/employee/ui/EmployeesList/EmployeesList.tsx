@@ -24,13 +24,15 @@ export const EmployeesList: FC<EmployeesListProps> = ({
                 const fullName =
                     `${employee.firstName} ${employee.lastName}`.trim();
                 const inProgressTasks = Math.max(
-                    employee.tasksCount - employee.doneTasksCount,
+                    employee.assignedTasksLastMonth -
+                        employee.completedTasksLastMonth,
                     0,
                 );
                 const productivity =
-                    employee.tasksCount > 0
+                    employee.assignedTasksLastMonth > 0
                         ? Math.round(
-                              (employee.doneTasksCount / employee.tasksCount) *
+                              (employee.completedTasksLastMonth /
+                                  employee.assignedTasksLastMonth) *
                                   100,
                           )
                         : 0;
@@ -87,7 +89,7 @@ export const EmployeesList: FC<EmployeesListProps> = ({
                                     Готово
                                 </span>
                                 <span className="employee-card__stat-value">
-                                    {employee.doneTasksCount}
+                                    {employee.completedTasksLastMonth}
                                 </span>
                             </div>
                             <div className="employee-card__stat">
