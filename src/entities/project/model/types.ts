@@ -34,3 +34,37 @@ export interface CreateProjectRequest {
     costs: number;
     deadline: string;
 }
+
+export type ReportTaskStatus = "TO_DO" | "IN_PROGRESS" | "REVIEW" | "DONE";
+
+export type RiskLevel = "LOW" | "MEDIUM" | "HIGH";
+
+export interface StatusDistributionItem {
+    status: ReportTaskStatus;
+    count: number;
+    percent: number;
+}
+
+export interface ReportResponse {
+    projectId: string;
+    projectTitle: string;
+
+    totalTasks: number;
+    doneTasks: number;
+    inProgressTasks: number;
+    reviewTasks: number;
+    toDoTasks: number;
+
+    donePercent: number;
+
+    deadline: string;
+    daysToDeadline: number;
+    overdue: boolean;
+
+    activeTasks: number;
+    reviewShare: number;
+
+    riskLevel: RiskLevel;
+
+    statusDistribution: StatusDistributionItem[];
+}

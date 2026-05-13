@@ -1,6 +1,7 @@
 import type {
     CreateProjectRequest,
     ProjectResponse,
+    ReportResponse,
 } from "@/entities/project/model/types";
 import { api } from "../../../api/axios";
 
@@ -26,6 +27,13 @@ export const projectApi = {
 
     delete: async (projectId: string) => {
         const response = await api.delete(`/projects/${projectId}`);
+        return response.data;
+    },
+
+    createReport: async (projectId: string): Promise<ReportResponse> => {
+        const response = await api.post<ReportResponse>(
+            `/projects/${projectId}/report`,
+        );
         return response.data;
     },
 };
