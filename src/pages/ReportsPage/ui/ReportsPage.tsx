@@ -4,7 +4,9 @@ import {
     type ReportResponse,
     type ReportTaskStatus,
 } from "@/entities/project";
-import { useCallback, useEffect, useState, type FC } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { useCallback, useEffect, useRef, useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import "./reportsPage.scss";
 
@@ -22,6 +24,7 @@ const RISK_LABELS = {
 } as const;
 
 export const ReportsPage: FC = () => {
+    const reportRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const selectedProject = useProjectStore((state) => state.selectedProject);
     const [report, setReport] = useState<ReportResponse | null>(null);
@@ -90,8 +93,49 @@ export const ReportsPage: FC = () => {
 
     const riskLabel = RISK_LABELS[report.riskLevel] ?? report.riskLevel;
 
+    const handleExportPdf = async () => {
+        if (!reportRef.current) {
+            return;
+        }
+
+        try {
+            const canvas = await html2canvas(reportRef.current, {
+                scale: 2,
+                useCORS: true,
+            });
+
+            const imageData = canvas.toDataURL("image/png");
+
+            const pdf = new jsPDF({
+                orientation: "portrait",
+                unit: "mm",
+                format: "a4",
+            });
+
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+
+            const imageWidth = canvas.width;
+            const imageHeight = canvas.height;
+
+            const ratio = Math.min(
+                pdfWidth / imageWidth,
+                pdfHeight / imageHeight,
+            );
+
+            const finalWidth = imageWidth * ratio;
+            const finalHeight = imageHeight * ratio;
+
+            pdf.addImage(imageData, "PNG", 0, 0, finalWidth, finalHeight);
+
+            pdf.save(`report-${report.projectTitle}.pdf`);
+        } catch (error) {
+            console.error("Помилка експорту PDF:", error);
+        }
+    };
+
     return (
-        <div className="reports-page">
+        <div className="reports-page" ref={reportRef}>
             <header className="reports-page__header">
                 <h1 className="reports-page__title">Звіт по проєкту</h1>
                 <p className="reports-page__project-name">
@@ -196,6 +240,14 @@ export const ReportsPage: FC = () => {
                     </div>
                 </article>
             </section>
+
+            <button
+                className="reports-page__export-btn"
+                disabled={isLoading}
+                onClick={() => void handleExportPdf()}
+            >
+                Експорт у PDF
+            </button>
         </div>
     );
 };
