@@ -1,6 +1,7 @@
 import { useEffect, useState, type FC, type KeyboardEvent } from "react";
 
 import { authApi } from "@/api/auth";
+import { supabase } from "@/api/supabase";
 import { useAuthStore } from "@/app/store/authStore";
 import {
     projectApi,
@@ -86,24 +87,6 @@ export const ProfilePage: FC = () => {
         void fetchUser();
     }, [userId]);
 
-    useEffect(() => {
-        const uploadAvatar = async () => {
-            if (avatarFile && userId) {
-                try {
-                    const updatedUser = await userApi.uploadAvatar(
-                        userId,
-                        avatarFile,
-                    );
-                    setUser(updatedUser);
-                    setAvatarFile(null);
-                } catch (error) {
-                    console.error("Помилка при завантаженні аватара:", error);
-                }
-            }
-        };
-        void uploadAvatar();
-    }, [avatarFile, userId]);
-
     const handleProjectSelect = (project: ProjectResponse) => {
         setSelectedProject(project);
         navigate("/projects/" + project.id + "/dashboard");
@@ -150,6 +133,43 @@ export const ProfilePage: FC = () => {
             setEditingField(null);
         } catch (error) {
             console.error(`Помилка при оновленні ${field}:`, error);
+        }
+    };
+
+    const uploadAvatar = async (file: File) => {
+        if (!userId) return;
+
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${crypto.randomUUID()}.${fileExt}`;
+        const filePath = `avatars/${userId}/${fileName}`;
+
+        const { error } = await supabase.storage
+            .from("avatars")
+            .upload(filePath, file);
+
+        if (error) throw error;
+
+        const { data } = supabase.storage
+            .from("avatars")
+            .getPublicUrl(filePath);
+
+        return data.publicUrl;
+    };
+
+    const handleAvatarChange = async (file: File | null) => {
+        if (!file || !userId || !user) return;
+
+        try {
+            const avatarUrl = await uploadAvatar(file);
+
+            const updatedUser = await userApi.update(userId, {
+                avatar: avatarUrl,
+            });
+
+            setUser(updatedUser);
+            setAvatarFile(null);
+        } catch (e) {
+            console.error("Avatar upload error", e);
         }
     };
 
@@ -245,10 +265,10 @@ export const ProfilePage: FC = () => {
                                     avatarFile
                                         ? null
                                         : user.avatar
-                                          ? `data:image/png;base64,${user.avatar}`
+                                          ? user.avatar
                                           : null
                                 }
-                                onChange={setAvatarFile}
+                                onChange={handleAvatarChange}
                             />
 
                             <div className="profile-page__details">
