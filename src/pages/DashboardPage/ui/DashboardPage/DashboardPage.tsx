@@ -62,7 +62,9 @@ export const DashboardPage: FC = () => {
         );
 
         try {
-            const updatedTask = await taskApi.updateStatus(taskId, nextStatus);
+            const updatedTask = await taskApi.update(taskId, {
+                status: nextStatus,
+            });
 
             setTasks((prev) =>
                 prev.map((task) =>

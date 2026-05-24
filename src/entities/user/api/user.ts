@@ -5,6 +5,7 @@ export interface UpdateUserPayload {
     firstName?: string;
     lastName?: string;
     email?: string;
+    avatar?: string | null;
     role?: User["role"];
 }
 
@@ -21,21 +22,6 @@ export const userApi = {
 
     update: async (userId: string, payload: UpdateUserPayload) => {
         const response = await api.patch<User>(`/users/${userId}`, payload);
-        return response.data;
-    },
-
-    uploadAvatar: async (userId: string, file: File) => {
-        const formData = new FormData();
-        formData.append("avatar", file);
-        const response = await api.patch<User>(
-            `/users/${userId}/avatar`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            },
-        );
         return response.data;
     },
 

@@ -14,11 +14,7 @@ export const UserAvatar: FC<UserAvatarProps> = ({ user, onClick }) => {
     return (
         <div className="user-avatar" onClick={onClick}>
             <img
-                src={
-                    user?.avatar
-                        ? `data:image/png;base64,${user.avatar}`
-                        : defaultAvatarUrl
-                }
+                src={user?.avatar ? user.avatar : defaultAvatarUrl}
                 alt="User Avatar"
                 className="user-avatar__image"
             />

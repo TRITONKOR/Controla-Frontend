@@ -4,17 +4,13 @@ import "./taskDetails.scss";
 
 export interface TaskDetailsProps {
     selectedTask: TaskResponse;
-    onDownloadAttachment?: () => void;
 }
 
 const getInitials = (firstName?: string, lastName?: string) => {
     return `${firstName?.[0] ?? ""}${lastName?.[0] ?? ""}`.toUpperCase();
 };
 
-export const TaskDetails: FC<TaskDetailsProps> = ({
-    selectedTask,
-    onDownloadAttachment,
-}) => {
+export const TaskDetails: FC<TaskDetailsProps> = ({ selectedTask }) => {
     return (
         <>
             <header className="task-details__header">
@@ -25,21 +21,26 @@ export const TaskDetails: FC<TaskDetailsProps> = ({
                 {selectedTask.description}
             </p>
 
-            <div className="task-details__attachment">
-                <div className="task-details__attachment-info">
-                    <p className="task-details__label">Вкладений файл</p>
-                    <p className="task-details__file-name">
-                        {selectedTask.attachmentUrl?.split("_").pop()}
-                    </p>
-                </div>
+            {selectedTask.attachmentUrl && (
+                <div className="task-details__attachment">
+                    <div className="task-details__attachment-info">
+                        <p className="task-details__label">Вкладений файл</p>
+                        <p className="task-details__file-name">
+                            {selectedTask.attachmentName}
+                        </p>
+                    </div>
 
-                <button
-                    className="task-details__download-btn"
-                    onClick={onDownloadAttachment}
-                >
-                    Завантажити
-                </button>
-            </div>
+                    <a
+                        className="task-details__download-btn"
+                        href={selectedTask.attachmentUrl}
+                        download
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Завантажити
+                    </a>
+                </div>
+            )}
 
             <div className="task-details__signed-users">
                 <p className="task-details__label">Підписані користувачі</p>
