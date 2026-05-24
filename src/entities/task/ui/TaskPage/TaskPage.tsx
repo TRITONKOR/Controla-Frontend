@@ -58,18 +58,6 @@ export const TaskPage: FC = () => {
         }
     };
 
-    const handleDownloadAttachment = async () => {
-        if (!selectedTask?.attachmentUrl) {
-            return;
-        }
-
-        try {
-            await taskApi.downloadAttachment(selectedTask.attachmentUrl);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const handleBack = () => {
         useTaskStore.setState({ selectedTask: null });
         navigate(`/projects/${selectedProject?.id}/dashboard`);
@@ -98,10 +86,7 @@ export const TaskPage: FC = () => {
                     Виберіть завдання для перегляду
                 </p>
             ) : (
-                <TaskDetails
-                    selectedTask={selectedTask}
-                    onDownloadAttachment={handleDownloadAttachment}
-                />
+                <TaskDetails selectedTask={selectedTask} />
             )}
         </section>
     );

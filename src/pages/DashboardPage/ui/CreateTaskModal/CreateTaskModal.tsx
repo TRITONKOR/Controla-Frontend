@@ -7,6 +7,7 @@ import { useAuthStore } from "@/app/store/authStore";
 import { Input } from "@/shared/ui/AuthInput";
 import { Modal } from "@/shared/ui/Modal";
 
+import { supabase } from "@/api/supabase";
 import { useProjectStore } from "@/entities/project";
 import { taskApi } from "@/entities/task/api/task";
 import type { TaskStatus } from "@/entities/task/model/types";
@@ -42,6 +43,7 @@ export const CreateTaskModal = ({
     const [serverError, setServerError] = useState<string | null>(null);
     const currentProject = useProjectStore((s) => s.selectedProject);
     const [attachment, setAttachment] = useState<File | null>(null);
+    const [file, setFile] = useState<File | null>(null);
 
     const {
         register,
@@ -61,19 +63,22 @@ export const CreateTaskModal = ({
     const onSubmit = async (data: CreateTaskFormData) => {
         if (!user || !currentProject) return;
         setServerError(null);
-        try {
-            const formData = new FormData();
 
-            formData.append("title", data.title);
-            formData.append("description", data.description);
-            formData.append("status", status);
-            formData.append("projectId", currentProject.id);
+        try {
+            const task = await taskApi.create({
+                title: data.title,
+                description: data.description,
+                status,
+                projectId: currentProject.id,
+            });
 
             if (attachment) {
-                formData.append("attachment", attachment);
+                const attachmentUrl = await uploadAttachment(attachment);
+                await taskApi.update(task.id, {
+                    attachmentUrl,
+                    attachmentName: file?.name,
+                });
             }
-
-            await taskApi.createTask(formData);
 
             reset();
             onSuccess?.();
@@ -85,6 +90,26 @@ export const CreateTaskModal = ({
                 "Помилка при створенні завдання";
             setServerError(message);
         }
+    };
+
+    const uploadAttachment = async (file: File) => {
+        if (!user) return;
+
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${crypto.randomUUID()}.${fileExt}`;
+        const filePath = `tasks_attachment/${user.id}/${fileName}`;
+
+        const { error } = await supabase.storage
+            .from("tasks_attachment")
+            .upload(filePath, file);
+
+        if (error) throw error;
+
+        const { data } = supabase.storage
+            .from("tasks_attachment")
+            .getPublicUrl(filePath);
+
+        return data.publicUrl;
     };
 
     return (
@@ -131,6 +156,7 @@ export const CreateTaskModal = ({
                             const file = event.target.files?.[0];
 
                             if (file) {
+                                setFile(file);
                                 setAttachment(file);
                             }
                         }}
