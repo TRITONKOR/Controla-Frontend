@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from "react";
+import { useCallback, useEffect, useState, type FC } from "react";
 
 import { useAuthStore } from "@/app/store/authStore";
 import { projectApi, useProjectStore } from "@/entities/project";
@@ -22,13 +22,22 @@ export const ProjectsPage: FC = () => {
         null,
     );
 
-    const loadProjects = () => {
-        projectApi.getAll().then(setProjects).catch(console.error);
-    };
+    const isManager = user?.role === "MANAGER";
+
+    const loadProjects = useCallback(() => {
+        if (isManager) {
+            projectApi.getAll().then(setProjects).catch(console.error);
+        } else if (user) {
+            projectApi
+                .getProjectsByEmployee(user.id)
+                .then(setProjects)
+                .catch(console.error);
+        }
+    }, [user, isManager]);
 
     useEffect(() => {
         loadProjects();
-    }, []);
+    }, [loadProjects]);
 
     const handleProjectSelect = (project: ProjectResponse) => {
         setSelectedProject(project);
@@ -40,7 +49,7 @@ export const ProjectsPage: FC = () => {
             <div className="projects__header">
                 <h1>Проєкти</h1>
                 <div className="projects__actions">
-                    {user?.role === "MANAGER" && (
+                    {isManager && (
                         <button
                             className="projects__create-button"
                             onClick={() => setIsCreateModalOpen(true)}
@@ -54,7 +63,7 @@ export const ProjectsPage: FC = () => {
                 <ProjectsList
                     onProjectSelect={handleProjectSelect}
                     onAssignEmployees={
-                        user?.role === "MANAGER"
+                        isManager
                             ? (project) => setAssignProject(project)
                             : undefined
                     }
