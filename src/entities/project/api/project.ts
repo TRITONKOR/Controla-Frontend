@@ -36,4 +36,19 @@ export const projectApi = {
         );
         return response.data;
     },
+
+    assignEmployee: async (projectId: string, employeeId: string) => {
+        const response = await api.post(
+            `/projects/${projectId}/assignees/${employeeId}`,
+            {},
+        );
+        return response.data;
+    },
+
+    unassignEmployee: async (projectId: string, employeeId: string) => {
+        const response = await api.delete(
+            `/projects/${projectId}/assignees/${employeeId}`,
+        );
+        return response.data;
+    },
 };
