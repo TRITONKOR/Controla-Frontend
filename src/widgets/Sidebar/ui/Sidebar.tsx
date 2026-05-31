@@ -1,10 +1,10 @@
 import { ROUTES } from "@/app/router/routes";
+import { useAuthStore } from "@/app/store/authStore";
 import type { ProjectResponse } from "@/entities/project";
 import { useProjectStore } from "@/entities/project";
 import { NavLink } from "react-router-dom";
 
 import dashboardIcon from "@/assets/dashboard-sidebar-icon.png";
-import settingsIcon from "@/assets/settings-sidebar-icon.png";
 import timelineIcon from "@/assets/timeline-sidebar-icon.png";
 import usersIcon from "@/assets/users-sidebar-icon.png";
 
@@ -16,11 +16,15 @@ interface NavItem {
     to: string;
 }
 
-const NAV_ITEMS_WITH_SELECTED_PROJECT: NavItem[] = [
+const NAV_ITEMS_WITH_SELECTED_PROJECT_ROLE_MANAGER: NavItem[] = [
     { label: "Дошка", icon: dashboardIcon, to: ROUTES.DASHBOARD },
     { label: "Працівники", icon: usersIcon, to: ROUTES.EMPLOYEES },
     { label: "Статистика", icon: timelineIcon, to: ROUTES.REPORTS },
-    { label: "Налаштування", icon: settingsIcon, to: ROUTES.PROJECT_SETTINGS },
+];
+
+const NAV_ITEMS_WITH_SELECTED_PROJECT_ROLE_EMPLOYEE: NavItem[] = [
+    { label: "Дошка", icon: dashboardIcon, to: ROUTES.DASHBOARD },
+    { label: "Працівники", icon: usersIcon, to: ROUTES.EMPLOYEES },
 ];
 
 const NAV_ITEMS: NavItem[] = [
@@ -40,8 +44,12 @@ const getNavLink = (
 
 export const Sidebar = () => {
     const selectedProject = useProjectStore((s) => s.selectedProject);
+    const userRole = useAuthStore((s) => s.user?.role);
+
     const navItems = selectedProject
-        ? NAV_ITEMS_WITH_SELECTED_PROJECT
+        ? userRole === "EMPLOYEE"
+            ? NAV_ITEMS_WITH_SELECTED_PROJECT_ROLE_EMPLOYEE
+            : NAV_ITEMS_WITH_SELECTED_PROJECT_ROLE_MANAGER
         : NAV_ITEMS;
 
     return (

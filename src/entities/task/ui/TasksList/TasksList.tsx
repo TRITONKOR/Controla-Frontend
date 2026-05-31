@@ -1,6 +1,7 @@
 import type { DragEvent, FC } from "react";
 import { TaskCard, type TaskResponse, type TaskStatus } from "../..";
 
+import { useAuthStore } from "@/app/store/authStore";
 import "./tasksList.scss";
 
 export interface TasksListProps {
@@ -30,6 +31,8 @@ export const TasksList: FC<TasksListProps> = ({
     onCreateTask,
     onTaskSelect,
 }) => {
+    const user = useAuthStore((state) => state.user);
+
     const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = "move";
@@ -60,12 +63,14 @@ export const TasksList: FC<TasksListProps> = ({
                     <span className="tasks-list__count">{tasks.length}</span>
                 </div>
 
-                <button
-                    className="tasks-list__create-btn"
-                    onClick={() => onCreateTask(status)}
-                >
-                    +
-                </button>
+                {user?.role === "MANAGER" ? (
+                    <button
+                        className="tasks-list__create-btn"
+                        onClick={() => onCreateTask(status)}
+                    >
+                        +
+                    </button>
+                ) : null}
             </div>
             <div className="tasks-list__items">
                 {tasks.length === 0 ? (
