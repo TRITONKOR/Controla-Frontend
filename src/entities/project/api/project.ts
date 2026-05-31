@@ -11,6 +11,15 @@ export const projectApi = {
         return response.data;
     },
 
+    getProjectsByEmployee: async (
+        userId: string,
+    ): Promise<ProjectResponse[]> => {
+        const response = await api.get<ProjectResponse[]>("/projects", {
+            params: { userId },
+        });
+        return response.data;
+    },
+
     createProject: async (
         data: CreateProjectRequest,
     ): Promise<ProjectResponse> => {
