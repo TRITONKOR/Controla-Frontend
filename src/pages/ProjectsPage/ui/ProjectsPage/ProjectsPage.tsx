@@ -6,6 +6,7 @@ import type { ProjectResponse } from "@/entities/project/model/types";
 import { ProjectsList } from "@/entities/project/ui/ProjectsList/ProjectsList";
 import { useNavigate } from "react-router-dom";
 import { CreateProjectPage } from "../CreateProjectPage/CreateProjectPage";
+import { AssignProjectEmployeesModal } from "./AssignProjectEmployeesModal/AssignProjectEmployeesModal";
 import "./projectsPage.scss";
 
 export const ProjectsPage: FC = () => {
@@ -16,7 +17,10 @@ export const ProjectsPage: FC = () => {
     );
 
     const [projects, setProjects] = useState<ProjectResponse[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [assignProject, setAssignProject] = useState<ProjectResponse | null>(
+        null,
+    );
 
     const loadProjects = () => {
         projectApi.getAll().then(setProjects).catch(console.error);
@@ -39,7 +43,7 @@ export const ProjectsPage: FC = () => {
                     {user?.role === "MANAGER" && (
                         <button
                             className="projects__create-button"
-                            onClick={() => setIsModalOpen(true)}
+                            onClick={() => setIsCreateModalOpen(true)}
                         >
                             Створити проєкт
                         </button>
@@ -49,14 +53,29 @@ export const ProjectsPage: FC = () => {
             <div className="projects__content">
                 <ProjectsList
                     onProjectSelect={handleProjectSelect}
+                    onAssignEmployees={
+                        user?.role === "MANAGER"
+                            ? (project) => setAssignProject(project)
+                            : undefined
+                    }
                     projects={projects}
                 />
             </div>
+
             <CreateProjectPage
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                isOpen={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
                 onSuccess={loadProjects}
             />
+
+            {assignProject && (
+                <AssignProjectEmployeesModal
+                    isOpen={!!assignProject}
+                    onClose={() => setAssignProject(null)}
+                    project={assignProject}
+                    onSuccess={loadProjects}
+                />
+            )}
         </div>
     );
 };

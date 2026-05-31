@@ -29,16 +29,16 @@ export const taskApi = {
         return response.data;
     },
 
-    assign: async (taskId: string, userId: string) => {
+    assign: async (taskId: string, employeeId: string) => {
         const response = await api.post(
-            `/tasks/${taskId}/assignees/${userId}`,
+            `/tasks/${taskId}/assignees/${employeeId}`,
             {},
         );
         return response.data;
     },
-    unassign: async (taskId: string, userId: string) => {
+    unassign: async (taskId: string, employeeId: string) => {
         const response = await api.delete(
-            `/tasks/${taskId}/assignees/${userId}`,
+            `/tasks/${taskId}/assignees/${employeeId}`,
         );
         return response.data;
     },

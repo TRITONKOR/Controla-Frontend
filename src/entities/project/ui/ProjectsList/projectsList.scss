@@ -170,4 +170,36 @@
     background: #f59e0b;
     transition: width 0.3s ease;
   }
+
+  &__assign-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--text);
+    cursor: pointer;
+    font-family: var(--inter);
+    font-size: 13px;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgb(46 105 222 / 5%);
+    }
+  }
+
+  &__assign-count {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    background: rgb(46 105 222 / 10%);
+    border-radius: 10px;
+    padding: 1px 6px;
+  }
 }
