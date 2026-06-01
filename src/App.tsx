@@ -7,6 +7,7 @@ import { useAuthStore } from "./app/store/authStore";
 function App() {
     const setAuth = useAuthStore((s) => s.setAuth);
     const clearAuth = useAuthStore((s) => s.clearAuth);
+    const setInitialized = useAuthStore((s) => s.setInitialized);
 
     useEffect(() => {
         authApi
@@ -18,6 +19,9 @@ function App() {
                 if (err.response?.status === 401) {
                     clearAuth();
                 }
+            })
+            .finally(() => {
+                setInitialized();
             });
     }, []);
 

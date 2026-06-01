@@ -21,7 +21,10 @@ export const PendingApprovalPage: FC = () => {
                 if (response.isApproved && response.role !== "PENDING") {
                     const refreshed = await authApi.refresh();
                     setAuth(refreshed.user, refreshed.accessToken);
-                    navigate(ROUTES.HOME, { replace: true });
+                    setTimeout(
+                        () => navigate(ROUTES.HOME, { replace: true }),
+                        50,
+                    );
                 }
             } catch (error) {
                 console.error(error);
