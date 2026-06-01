@@ -8,7 +8,7 @@ import type {
 } from "@/entities/project/model/types";
 import { Modal } from "@/shared/ui/Modal";
 import { useEffect, useState, type FC } from "react";
-import "./AssignProjectEmployeesModal.scss";
+import "./assignProjectEmployeesModal.scss";
 
 interface AssignProjectEmployeesModalProps {
     isOpen: boolean;
