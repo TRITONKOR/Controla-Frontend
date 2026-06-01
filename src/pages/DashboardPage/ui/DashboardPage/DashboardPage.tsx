@@ -97,9 +97,15 @@ export const DashboardPage: FC = () => {
     return (
         <div className="dashboard-page">
             <div className="dashboard-page__header">
-                <h1 className="dashboard-page__title">
-                    Дошка завдань - {selectedProject?.title}
-                </h1>
+                <div className="dashboard-page__project-info">
+                    <h1 className="dashboard-page__title">
+                        Дошка завдань - {selectedProject?.title}
+                    </h1>
+                    <p className="dashboard-page__description">
+                        {selectedProject?.description ||
+                            "Опис проєкту ще не додано"}
+                    </p>
+                </div>
             </div>
             <div className="dashboard-page__content">
                 {COLUMNS.map((column) => (
