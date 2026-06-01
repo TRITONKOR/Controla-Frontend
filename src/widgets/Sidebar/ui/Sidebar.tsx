@@ -56,7 +56,7 @@ export const Sidebar = () => {
         <div className="sidebar">
             <div className="sidebar__header">
                 <h2 className="sidebar__title">
-                    {selectedProject ? selectedProject.title : "Controla"}
+                    {selectedProject ? selectedProject.title : "Контрола"}
                 </h2>
             </div>
             <nav className="sidebar__nav">

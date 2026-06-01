@@ -51,7 +51,7 @@ export const AdminSidebar: FC<Props> = ({
     return (
         <aside className="admin-sidebar">
             <div className="admin-sidebar__header">
-                <h2 className="admin-sidebar__title">Controla Admin</h2>
+                <h2 className="admin-sidebar__title">Адмін-панель</h2>
             </div>
 
             <nav className="admin-sidebar__nav">

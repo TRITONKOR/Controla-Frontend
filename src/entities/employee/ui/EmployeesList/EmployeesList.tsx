@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useState, type FC } from "react";
 import type { EmployeeResponse } from "../..";
 
 import "./employeesList.scss";
@@ -14,15 +14,39 @@ function getInitials(firstName?: string, lastName?: string): string {
     return `${first}${last}`.toUpperCase() || "?";
 }
 
+function getAvatarSrc(avatar?: string): string | null {
+    if (!avatar?.trim()) {
+        return null;
+    }
+
+    const normalizedAvatar = avatar.trim();
+    if (
+        normalizedAvatar.startsWith("http://") ||
+        normalizedAvatar.startsWith("https://") ||
+        normalizedAvatar.startsWith("data:image/")
+    ) {
+        return normalizedAvatar;
+    }
+
+    return `data:image/png;base64,${normalizedAvatar}`;
+}
+
 export const EmployeesList: FC<EmployeesListProps> = ({
     employees,
     onEmployeeSelect,
 }) => {
+    const [failedAvatarIds, setFailedAvatarIds] = useState<Set<string>>(
+        () => new Set(),
+    );
+
     return (
         <div className="employees-list">
             {employees.map((employee) => {
                 const fullName =
                     `${employee.firstName} ${employee.lastName}`.trim();
+                const avatarSrc = getAvatarSrc(employee.avatar);
+                const hasValidAvatar =
+                    avatarSrc && !failedAvatarIds.has(employee.id);
                 const inProgressTasks = Math.max(
                     employee.assignedTasksLastMonth -
                         employee.completedTasksLastMonth,
@@ -52,11 +76,18 @@ export const EmployeesList: FC<EmployeesListProps> = ({
                         </span>
 
                         <div className="employee-card__avatar-wrap">
-                            {employee.avatar ? (
+                            {hasValidAvatar ? (
                                 <img
                                     className="employee-card__avatar"
-                                    src={`data:image/png;base64,${employee.avatar}`}
+                                    src={avatarSrc}
                                     alt={fullName || "Employee avatar"}
+                                    onError={() => {
+                                        setFailedAvatarIds((prev) => {
+                                            const next = new Set(prev);
+                                            next.add(employee.id);
+                                            return next;
+                                        });
+                                    }}
                                 />
                             ) : (
                                 <div className="employee-card__avatar employee-card__avatar--fallback">

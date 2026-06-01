@@ -29,9 +29,9 @@ export const Header = () => {
                     onClick={handleLogoClick}
                     className="header__logo"
                     src={logoUrl}
-                    alt="Controla logo"
+                    alt="Контрола logo"
                 />
-                <h1 className="header__title">Controla</h1>
+                <h1 className="header__title">Контрола</h1>
             </div>
             <div className="navigation"></div>
             <div className="profile">

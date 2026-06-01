@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/app/store/authStore";
 import type { User } from "@/entities/user";
 import type { FC } from "react";
 import "./usersTable.scss";
@@ -9,7 +10,6 @@ export interface UsersTableProps {
 }
 
 const ROLE_OPTIONS: Array<{ value: User["role"]; label: string }> = [
-    { value: "ADMIN", label: "Адміністратор" },
     { value: "MANAGER", label: "Менеджер" },
     { value: "EMPLOYEE", label: "Працівник" },
 ];
@@ -19,6 +19,7 @@ export const UsersTable: FC<UsersTableProps> = ({
     onRoleChange,
     onDeleteUser,
 }) => {
+    const currentUser = useAuthStore((state) => state.user);
     return (
         <div className="users-table">
             <div className="users-table__header">
@@ -41,34 +42,41 @@ export const UsersTable: FC<UsersTableProps> = ({
                             <td>{user.lastName}</td>
                             <td>{user.email}</td>
                             <td>
-                                <select
-                                    className="users-table__role-select"
-                                    value={user.role}
-                                    onChange={(event) =>
-                                        onRoleChange?.(
-                                            user.id,
-                                            event.target.value as User["role"],
-                                        )
-                                    }
-                                >
-                                    {ROLE_OPTIONS.map((option) => (
-                                        <option
-                                            key={option.value}
-                                            value={option.value}
-                                        >
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
+                                {currentUser?.id === user.id ? (
+                                    <span>Адміністратор (ви)</span>
+                                ) : (
+                                    <select
+                                        className="users-table__role-select"
+                                        value={user.role}
+                                        onChange={(event) =>
+                                            onRoleChange?.(
+                                                user.id,
+                                                event.target
+                                                    .value as User["role"],
+                                            )
+                                        }
+                                    >
+                                        {ROLE_OPTIONS.map((option) => (
+                                            <option
+                                                key={option.value}
+                                                value={option.value}
+                                            >
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                )}
                             </td>
                             <td>
-                                <button
-                                    type="button"
-                                    className="users-table__delete-btn"
-                                    onClick={() => onDeleteUser?.(user.id)}
-                                >
-                                    Видалити
-                                </button>
+                                {user.role !== "ADMIN" && (
+                                    <button
+                                        type="button"
+                                        className="users-table__delete-btn"
+                                        onClick={() => onDeleteUser?.(user.id)}
+                                    >
+                                        Видалити
+                                    </button>
+                                )}
                             </td>
                         </tr>
                     ))}
