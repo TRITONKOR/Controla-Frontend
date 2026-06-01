@@ -15,7 +15,7 @@ export interface AssigneeShort {
     userId: string;
     firstName: string;
     lastName: string;
-    avatarUrl: string | null;
+    avatar: string | null;
 }
 
 export interface CreateTaskRequest {

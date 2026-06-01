@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useState, type FC } from "react";
 
 import "./userAvatar.scss";
 
@@ -11,12 +11,26 @@ interface UserAvatarProps {
 }
 
 export const UserAvatar: FC<UserAvatarProps> = ({ user, onClick }) => {
+    const [failedAvatarUrl, setFailedAvatarUrl] = useState<string | null>(null);
+    const avatarUrl = user?.avatar;
+    const avatarSrc =
+        avatarUrl && avatarUrl !== failedAvatarUrl
+            ? avatarUrl
+            : defaultAvatarUrl;
+
+    const handleImageError = () => {
+        if (avatarUrl) {
+            setFailedAvatarUrl(avatarUrl);
+        }
+    };
+
     return (
         <div className="user-avatar" onClick={onClick}>
             <img
-                src={user?.avatar ? user.avatar : defaultAvatarUrl}
+                src={avatarSrc}
                 alt="User Avatar"
                 className="user-avatar__image"
+                onError={handleImageError}
             />
         </div>
     );

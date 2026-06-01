@@ -53,7 +53,15 @@ export const TaskDetails: FC<TaskDetailsProps> = ({ selectedTask }) => {
                             title={`${user.firstName} ${user.lastName}`}
                             aria-label={`${user.firstName} ${user.lastName}`}
                         >
-                            {getInitials(user.firstName, user.lastName)}
+                            {user.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt={`${user.firstName} ${user.lastName}`}
+                                    className="task-details__avatar-image"
+                                />
+                            ) : (
+                                getInitials(user.firstName, user.lastName)
+                            )}
                         </div>
                     ))}
                 </div>

@@ -115,7 +115,15 @@ export const ProjectsList: FC<ProjectsListProps> = ({
                                 </span>
                                 <div className="project-card__leader">
                                     <div className="project-card__leader-avatar">
-                                        {leaderInitial}
+                                        {project.ownerAvatar ? (
+                                            <img
+                                                src={project.ownerAvatar}
+                                                alt={leaderName}
+                                                className="project-card__leader-avatar-image"
+                                            />
+                                        ) : (
+                                            leaderInitial
+                                        )}
                                     </div>
                                     <span className="project-card__leader-name">
                                         {leaderName}

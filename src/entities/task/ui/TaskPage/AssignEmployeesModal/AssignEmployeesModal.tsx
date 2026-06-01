@@ -77,7 +77,7 @@ const AssignEmployeesModalContent: FC<AssignEmployeesModalProps> = ({
                     userId: String(emp.id),
                     firstName: emp.firstName,
                     lastName: emp.lastName,
-                    avatarUrl: emp.avatar ?? null,
+                    avatar: emp.avatar ?? null,
                 }));
 
             useTaskStore.setState({

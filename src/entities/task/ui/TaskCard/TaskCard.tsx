@@ -48,10 +48,10 @@ export const TaskCard: FC<TaskCardProps> = ({
                             className="task-card__assignee"
                             title={`${assignee.firstName} ${assignee.lastName}`}
                         >
-                            {assignee.avatarUrl ? (
+                            {assignee.avatar ? (
                                 <img
                                     className="task-card__avatar"
-                                    src={assignee.avatarUrl}
+                                    src={assignee.avatar}
                                     alt={`${assignee.firstName} ${assignee.lastName}`}
                                 />
                             ) : (
