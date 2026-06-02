@@ -7,7 +7,13 @@ export interface TaskResponse {
     status: TaskStatus;
     attachmentUrl: string;
     attachmentName: string;
+    project: ShortProjectResponse;
     assignees: AssigneeShort[];
+}
+
+export interface ShortProjectResponse {
+    id: string;
+    title: string;
 }
 
 export interface AssigneeShort {

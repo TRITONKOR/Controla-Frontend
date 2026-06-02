@@ -10,6 +10,7 @@ import {
 } from "@/entities/project";
 import { ProjectsList } from "@/entities/project/ui/ProjectsList/ProjectsList";
 import { ProfileTasksList, taskApi, type TaskResponse } from "@/entities/task";
+import { useTaskStore } from "@/entities/task/model/taskStore";
 import { userApi } from "@/entities/user";
 import type { UserDetailedResponse } from "@/entities/user/model/types";
 import { AvatarUpload } from "@/shared/ui/AvatarUpload";
@@ -43,6 +44,7 @@ export const ProfilePage: FC = () => {
     const setSelectedProject = useProjectStore(
         (state) => state.setSelectedProject,
     );
+    const setSelectedTask = useTaskStore((s) => s.setSelectedTask);
     const navigate = useNavigate();
 
     const [user, setUser] = useState<UserDetailedResponse | null>(null);
@@ -90,6 +92,21 @@ export const ProfilePage: FC = () => {
     const handleProjectSelect = (project: ProjectResponse) => {
         setSelectedProject(project);
         navigate("/projects/" + project.id + "/dashboard");
+    };
+
+    const handleTaskSelect = (task: TaskResponse) => {
+        const relatedProject = userProjects.find(
+            (project) =>
+                project.id === task.project.id ||
+                project.tasks.some((projectTask) => projectTask.id === task.id),
+        );
+
+        if (relatedProject) {
+            setSelectedProject(relatedProject);
+        }
+
+        setSelectedTask(task);
+        navigate(`/projects/${task.project.id}/dashboard/${task.id}`);
     };
 
     const saveField = async (field: EditableFields) => {
@@ -312,7 +329,10 @@ export const ProfilePage: FC = () => {
 
                                 {openedSections.tasks && (
                                     <div className="profile-page__section-content">
-                                        <ProfileTasksList tasks={userTasks} />
+                                        <ProfileTasksList
+                                            tasks={userTasks}
+                                            onTaskSelect={handleTaskSelect}
+                                        />
                                     </div>
                                 )}
                             </div>
