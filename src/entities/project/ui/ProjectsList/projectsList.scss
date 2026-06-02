@@ -11,6 +11,18 @@
   justify-content: flex-start ;
 }
 
+.projects-list__empty {
+  margin: 0;
+  width: 100%;
+  padding: 18px;
+  border: 1px dashed rgb(148 163 184 / 60%);
+  border-radius: 14px;
+  background: rgb(241 245 249 / 60%);
+  color: #475569;
+  font-size: 14px;
+  text-align: center;
+}
+
 .project-card {
   flex: 1 1 350px;
   max-width: 450px;

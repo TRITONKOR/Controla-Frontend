@@ -293,6 +293,7 @@ export const ProfilePage: FC = () => {
                                     <div className="profile-page__section-content">
                                         <ProjectsList
                                             projects={userProjects}
+                                            emptyText="Користувач ще не приєднався до жодного проєкту"
                                             onProjectSelect={
                                                 handleProjectSelect
                                             }

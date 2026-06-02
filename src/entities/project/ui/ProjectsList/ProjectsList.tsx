@@ -7,6 +7,7 @@ interface ProjectsListProps {
     projects: ProjectResponse[];
     onProjectSelect: (project: ProjectResponse) => void;
     onAssignEmployees?: (project: ProjectResponse) => void;
+    emptyText?: string;
 }
 
 function formatDeadline(dateStr: string): string {
@@ -22,7 +23,16 @@ export const ProjectsList: FC<ProjectsListProps> = ({
     projects,
     onProjectSelect,
     onAssignEmployees,
+    emptyText,
 }) => {
+    if (projects.length === 0 && emptyText) {
+        return (
+            <div className="projects-list">
+                <p className="projects-list__empty">{emptyText}</p>
+            </div>
+        );
+    }
+
     return (
         <div className="projects-list">
             {projects.map((project) => {
