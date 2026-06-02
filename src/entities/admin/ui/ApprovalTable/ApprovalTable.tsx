@@ -10,10 +10,8 @@ export interface ApprovalTableProps {
 }
 
 const ROLE_OPTIONS: Array<{ value: User["role"]; label: string }> = [
-    { value: "ADMIN", label: "Адміністратор" },
     { value: "MANAGER", label: "Менеджер" },
     { value: "EMPLOYEE", label: "Працівник" },
-    { value: "PENDING", label: "Очікує підтвердження" },
 ];
 
 export const ApprovalTable: FC<ApprovalTableProps> = ({
@@ -61,7 +59,12 @@ export const ApprovalTable: FC<ApprovalTableProps> = ({
                             <td>
                                 <select
                                     className="users-table__role-select"
-                                    value={user.role}
+                                    value={
+                                        ROLE_OPTIONS.find(
+                                            (option) =>
+                                                option.value === "EMPLOYEE",
+                                        )?.value || ""
+                                    }
                                     onChange={(event) =>
                                         onRoleChange?.(
                                             user.id,
