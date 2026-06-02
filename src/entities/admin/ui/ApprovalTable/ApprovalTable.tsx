@@ -10,8 +10,8 @@ export interface ApprovalTableProps {
 }
 
 const ROLE_OPTIONS: Array<{ value: User["role"]; label: string }> = [
-    { value: "MANAGER", label: "Менеджер" },
     { value: "EMPLOYEE", label: "Працівник" },
+    { value: "MANAGER", label: "Менеджер" },
 ];
 
 export const ApprovalTable: FC<ApprovalTableProps> = ({
@@ -60,10 +60,9 @@ export const ApprovalTable: FC<ApprovalTableProps> = ({
                                 <select
                                     className="users-table__role-select"
                                     value={
-                                        ROLE_OPTIONS.find(
-                                            (option) =>
-                                                option.value === "EMPLOYEE",
-                                        )?.value || ""
+                                        user.role === "PENDING"
+                                            ? "EMPLOYEE"
+                                            : user.role
                                     }
                                     onChange={(event) =>
                                         onRoleChange?.(
