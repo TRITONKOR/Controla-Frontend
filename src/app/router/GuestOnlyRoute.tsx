@@ -8,8 +8,11 @@ interface GuestOnlyRouteProps {
 }
 
 export const GuestOnlyRoute = ({ children }: GuestOnlyRouteProps) => {
-    const user = useAuthStore((state) => state.user);
-    const accessToken = useAuthStore((state) => state.accessToken);
+    const { user, accessToken, isInitialized } = useAuthStore();
+
+    if (!isInitialized) {
+        return <div>Завантаження...</div>;
+    }
 
     if (user && accessToken) {
         return <Navigate to={ROUTES.HOME} replace />;
